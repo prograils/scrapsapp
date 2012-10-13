@@ -20,4 +20,16 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
+
+  def remove_icon
+    raw('<i class="icon-remove"></i>')
+  end
+
+  def draw_icon(icon, opts={})
+    raw("<i class=\"icon-#{icon} #{opts[:class]}\"></i>")
+  end
+
+  def ejs(val)
+    escape_javascript val
+  end
 end

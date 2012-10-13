@@ -8,18 +8,48 @@
         = javascript_include_tag "application"
         = csrf_meta_tags
         = yield(:head)
-  %body
+  %body{:class=>params[:controller], :'data-organization'=>@organization.present? ? @organization.slug : ''}
     %header.navbar.navbar-fixed-top
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
-    #main{:role => "main"}
+    #main{:role => "main", :class=>params[:action]}
       .container
-        .content
+        - if current_user
           .row
-            .span12
+            .span3
+              %ul.nav.nav-pills.nav-stacked
+                %li
+                  = link_to "#" do
+                    = draw_icon 'inbox'
+                    Dashboard
+                %li
+                  = link_to "#" do
+                    = draw_icon 'star'
+                    Starred
+                    %span.badge 0
+              #nav_cordion.accordion
+                - current_user.organizations.each_with_index do |org, idx|
+                  .accordion-group
+                    .accordion-heading
+                      %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
+                        %strong= org.name
+                    .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
+                      .sidebar-nav
+                        %ul.nav.nav-list
+                          %li.nav-header Folders
+                          %li.divider/
+                          %li= link_to 'All scraps', [org, :scraps]
+                          %li= link_to 'Group overview', [org]
+            .span9
               = render 'layouts/messages'
               = yield
+        - else
+          .content
+            .row
+              .span12
+                = render 'layouts/messages'
+                = yield
           %footer
       / ! end of .container
     / ! end of #main
