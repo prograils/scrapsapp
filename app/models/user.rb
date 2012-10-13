@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :organizations, :through=>:memberships, :source=>:organization
   has_many :managed_organizations, :through=>:memberships, :source=>:organization, 
             :class_name=>"Organization", :conditions=>['membership_type=?', 'admin']
+  has_many :scraps, :dependent=>:destroy
 
   ## DEVISE
   devise :database_authenticatable, :registerable, :confirmable,
@@ -34,14 +35,17 @@ class User < ActiveRecord::Base
   private
     def create_private_organization
       o = Organization.new
+      o.creating_user = true
       o.name = self.username
       o.user = self
       o.save!
+      o.make_admin(self)
     end
 
     def change_organization_name
       if username_changed?
         po = self.private_organization
+        po.creating_user = true
         po.name = self.username
         po.save
       end
@@ -51,7 +55,7 @@ class User < ActiveRecord::Base
       ex = Organization
       ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.public
       ex = ex.where('name ilike ?', self.username).exists?
-      errors.add(:username, 'is taken') if ex or User::FORBIDDEN_NAMES.member?(self.username.downcase.strip)
+      errors.add(:username, 'is taken') if ex or User::FORBIDDEN_NAMES.member?((self.username||"").downcase.strip)
     end
   
 end

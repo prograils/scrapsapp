@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013111440) do
+ActiveRecord::Schema.define(:version => 20121013113121) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,21 @@ ActiveRecord::Schema.define(:version => 20121013111440) do
 
   add_index "organizations", ["slug"], :name => "index_organizations_on_slug", :unique => true
   add_index "organizations", ["user_id"], :name => "index_organizations_on_user_id"
+
+  create_table "scraps", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.boolean  "is_public",       :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "scraps", ["organization_id"], :name => "index_scraps_on_organization_id"
+  add_index "scraps", ["slug", "organization_id"], :name => "index_scraps_on_slug_and_organization_id", :unique => true
+  add_index "scraps", ["user_id"], :name => "index_scraps_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

@@ -1,0 +1,9 @@
+%h2= @scrap.title
+
+%p
+  = simple_format @scrap.description
+
+- if current_user and @scrap.organization.users.member?(current_user)
+  = link_to 'Edit', [:edit, @organization, @scrap]
+  \|
+  = link_to 'Back', [@organization, :scraps]

@@ -1,0 +1,21 @@
+%h1 Listing scraps
+
+%table.table
+  %tr
+    %th Name
+    %th Is public
+    %th
+
+  - @scraps.each do |scrap|
+    %tr
+      %td= scrap.title
+      %td= scrap.is_public
+      %td
+        - if current_user and scrap.organization.users.member?(current_user)
+          = link_to 'Show', [@organization, scrap]
+          = link_to 'Edit', [:edit, @organization, scrap]
+          = link_to 'Destroy', [@organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Scrap', [:new, @organization, :scrap]

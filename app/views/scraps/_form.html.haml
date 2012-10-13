@@ -1,0 +1,10 @@
+= simple_form_for([@organization, @scrap]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :description
+    = f.input :is_public
+
+  .form-actions
+    = f.button :submit

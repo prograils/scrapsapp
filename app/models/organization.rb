@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  attr_accessor :permissions
+  attr_accessor :permissions, :creating_user
 
   ## SCOPES
   scope :public, where("#{Organization.quoted_table_name}.user_id is null")
@@ -11,6 +11,8 @@ class Organization < ActiveRecord::Base
   has_many :users, :through=>:memberships, :source=>:user
   has_many :admins, :through=>:memberships, :source=>:user, :class_name=>"User",
             :conditions=>['memberships.membership_type=?', 'admin']
+  has_many :scraps, :dependent=>:destroy
+
 
   ## VALIDATIONS
   validates :name,
@@ -47,7 +49,7 @@ class Organization < ActiveRecord::Base
 
   private
     def check_name_uniqueness
-      ex = User.where('username ilike ?', self.name).exists?
-      errors.add(:name, 'is taken') if ex or User::FORBIDDEN_NAMES.member?(self.name.downcase.strip)
+      ex = User.where('username ilike ?', self.name).exists? && (not @creating_user)
+      errors.add(:name, 'is taken') if ex or User::FORBIDDEN_NAMES.member?((self.name||"").downcase.strip)
     end
 end
