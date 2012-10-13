@@ -12,7 +12,7 @@ FactoryGirl.define do
     username 
     first_name "John"
     last_name "Rambo"
-    password "StrongOne!"
-    password_confirmation "StrongOne!"
+    password "abc123"
+    password_confirmation "abc123"
   end
 end
