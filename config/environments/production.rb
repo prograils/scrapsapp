@@ -1,4 +1,4 @@
-ScrappsApp::Application.configure do
+ScrapsApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -72,7 +72,7 @@ ScrappsApp::Application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "example.com",
+    domain: "scrapsapp.com",
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: ENV["GMAIL_USERNAME"],

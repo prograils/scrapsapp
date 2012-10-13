@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ScrappsApp::Application.load_tasks
+ScrapsApp::Application.load_tasks
