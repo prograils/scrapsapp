@@ -29,6 +29,7 @@ role :web, "scrapsapp.com"                          # Your HTTP server, Apache/e
 role :app, "scrapsapp.com"                          # This may be the same as your `Web` server
 role :db,  "scrapsapp.com", :primary => true # This is where Rails migrations will run
 
+set :hipchat_token, ENV['HIPCHAT_TOKEN']
 set :hipchat_room_name, "deployments"
 set :hipchat_announce, false # notify users
 set :hipchat_human, "ScrapsApp"
