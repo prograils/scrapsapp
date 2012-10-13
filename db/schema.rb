@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013135422) do
+ActiveRecord::Schema.define(:version => 20121013165435) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,20 @@ ActiveRecord::Schema.define(:version => 20121013135422) do
 
   add_index "memberships", ["organization_id"], :name => "index_memberships_on_organization_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "observers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.integer  "membership_id"
+    t.integer  "observed_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "observers", ["membership_id"], :name => "index_observers_on_membership_id"
+  add_index "observers", ["observed_id"], :name => "index_observers_on_observed_id"
+  add_index "observers", ["organization_id"], :name => "index_observers_on_organization_id"
+  add_index "observers", ["user_id"], :name => "index_observers_on_user_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"

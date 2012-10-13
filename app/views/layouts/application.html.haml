@@ -28,6 +28,10 @@
                     = draw_icon 'star'
                     Starred
                     %span.badge 0
+                %li
+                  = link_to observed_path, :class=>"p" do
+                    = draw_icon 'eye-open'
+                    Observed
               #nav_cordion.accordion
                 - current_user.organizations.each_with_index do |org, idx|
                   .accordion-group

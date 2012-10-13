@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:show, :public]
-  before_filter :find_managed_organization, :except=>[:index, :show, :new, :create, :public]
+  before_filter :find_managed_organization, :except=>[:index, :show, :new, :create, :public, :observe, :stop_observing]
   inherit_resources
 
   ## inherited overwrites
@@ -45,6 +45,18 @@ class OrganizationsController < ApplicationController
     @q = Organization.public.search(params[:q])
     @organizations = @q.result(:distinct=>true).page(params[:page])
     @can_manage = false
+  end
+
+  def observe
+    @organization = Organization.find(params[:id])
+    Observer.observe_organization(current_user, @organization)
+    redirect_to :back
+  end
+
+  def stop_observing
+    @organization = Organization.public.find(params[:id])
+    current_user.observers.where(:organization_id=>@organization.id).destroy_all
+    redirect_to :back
   end
 
 

@@ -7,6 +7,7 @@ describe User do
   it { should have_many(:organizations) }
   it { should have_many(:managed_organizations) }
   it { should have_many(:scraps) }
+  it { should have_many(:observed_organizations) }
 
   context :uniquness do
     before(:each) do

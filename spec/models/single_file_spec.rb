@@ -14,14 +14,14 @@ describe SingleFile do
       #puts Pygments::Lexer.all.select{|y| !(y.filenames.empty?)}.map{|x|[x.name]}
       {:rb=>"Ruby", :py=>"Python"}.each do |k,v|
         sf = FactoryGirl.create(:single_file, :name=>"test.#{k}", :scrap=>@scrap)
-        sf.lexer.should == k
+        [k.to_s, v.to_s.downcase].member?(sf.lexer).should be_true
       end
     end
 
     it "should recognize txt file" do
       sf = FactoryGirl.build(:single_file, :name=>"config/initializer/test.txt", :scrap=>@scrap)
       sf.save!
-      sf.lexer.should == "txt"
+      sf.lexer.should == "text"
     end
 
     it "should recognize md file" do

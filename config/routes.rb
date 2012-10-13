@@ -2,6 +2,7 @@ ScrapsApp::Application.routes.draw do
 
 
   get "starred" => "dashboard#starred", :as=>:starred
+  get "observed" => "dashboard#observed", :as=>:observed
 
   resources :organizations do
     collection do
@@ -9,6 +10,8 @@ ScrapsApp::Application.routes.draw do
     end
     member do 
       get :members
+      get :observe
+      get :stop_observing
     end
     
     resources :scraps do 

@@ -12,6 +12,8 @@ class Organization < ActiveRecord::Base
   has_many :admins, :through=>:memberships, :source=>:user, :class_name=>"User",
             :conditions=>['memberships.membership_type=?', 'admin']
   has_many :scraps, :dependent=>:destroy
+  has_many :observers, :dependent=>:destroy
+  has_many :observing_users, :through=>:observers, :source=>:user, :class_name=>"User"
 
 
   ## VALIDATIONS

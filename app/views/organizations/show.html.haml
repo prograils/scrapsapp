@@ -12,4 +12,9 @@
     \|
     = link_to 'Add or remove members', members_organization_path(@organization)
     \|
+- if current_user 
+  - if current_user.observed_organizations.member?(@organization)
+    = link_to "stop observing", [:stop_observing, @organization]
+  - else
+    = link_to "observe!", [:observe, @organization]
 = link_to 'Back', organizations_path

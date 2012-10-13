@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :managed_organizations, :through=>:memberships, :source=>:organization, 
             :class_name=>"Organization", :conditions=>['membership_type=?', 'admin']
   has_many :scraps, :dependent=>:destroy
+  has_many :observers, :dependent=>:destroy
+  has_many :observed_organizations, :through=>:observers, :source=>:organization, :class_name=>"Organization"
+  has_many :observed_users, :through=>:observers, :source=>:observed, :class_name=>"User"
 
   ## DEVISE
   devise :database_authenticatable, :registerable, :confirmable,
