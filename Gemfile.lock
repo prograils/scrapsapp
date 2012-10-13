@@ -259,6 +259,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   nested_form
+  nokogiri
   pg (>= 0.14.1)
   pygments.rb
   rails (= 3.2.8)

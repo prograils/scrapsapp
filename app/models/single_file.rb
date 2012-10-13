@@ -9,7 +9,7 @@ class SingleFile < ActiveRecord::Base
   #validates :lexer,
             #:inclusion=>{:in=>[""]|Pygments::Lexer.all.select{|y| !(y.filenames.empty?)}.map{|x|[x.name]}}
   ## ACCESSIBLE
-  attr_accessible :content, :directory, :lexer
+  attr_accessible :content, :name, :lexer
 
   ## BEFORE & AFTER
   before_save :split_name
@@ -30,8 +30,8 @@ class SingleFile < ActiveRecord::Base
         else
           lx = Pygments::Lexer.find_by_extname(ext)
           if lx.present?
-            self.lexer = lx.name
-            self.lexer_type = 'pygments.rb'
+            self.lexer = lx.aliases.first
+            self.lexer_type = 'pygments'
           end
         end
       end

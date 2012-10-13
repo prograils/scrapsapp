@@ -3,6 +3,7 @@ class ScrapsController < ApplicationController
   before_filter :find_organization
   before_filter :find_public_scrap, :only=>[:show]
   before_filter :find_and_check_ownership, :except=>[:index, :show, :new, :create]
+  before_filter :check_organization_membership, :only=>[:new, :create]
 
 
   inherit_resources
@@ -16,6 +17,12 @@ class ScrapsController < ApplicationController
     end
     @q = @q.search(params[:q])
     @scraps = @q.result(:distinct=>true).page(params[:page])
+  end
+
+  def new
+    @scrap = @organization.scraps.new
+    @scrap.single_files.build
+    new!
   end
 
   def create
@@ -41,6 +48,10 @@ class ScrapsController < ApplicationController
                 else
                   @organization.scraps.public.find(params[:id])
                 end
+    end
+
+    def check_organization_membership
+      redirect_to(root_url) unless @organization.users.member?(current_user)
     end
   
 end

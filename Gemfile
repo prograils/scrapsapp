@@ -18,6 +18,7 @@ gem "ransack"
 gem "nested_form"
 gem 'pygments.rb'
 gem 'redcarpet'
+gem 'nokogiri'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

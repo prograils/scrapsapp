@@ -17,5 +17,5 @@
           = link_to 'Destroy', [@organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
-
-= link_to 'New Scrap', [:new, @organization, :scrap]
+- if current_user and @organization.users.member?(current_user)
+  = link_to 'New Scrap', [:new, @organization, :scrap]

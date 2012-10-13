@@ -2,6 +2,15 @@
 
 %p
   = simple_format @scrap.description
+- @scrap.single_files.each do |sf|
+  %h5
+    - if sf.directory
+      %small= sf.directory
+    = sf.file_name
+    - unless sf.lexer_type.present?
+      .well Not recognized file, sorry
+    - else
+      = render :partial=>"highlight_#{sf.lexer_type}", :locals=>{:single_file=>sf}
 
 - if current_user and @scrap.organization.users.member?(current_user)
   = link_to 'Edit', [:edit, @organization, @scrap]
