@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should validate_presence_of(:username) }
+
+  context :uniquness do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+    it { should validate_uniqueness_of(:username) }
+  end
 end
