@@ -14,8 +14,9 @@ class Organization < ActiveRecord::Base
 
   ## VALIDATIONS
   validates :name,
-            :uniqueness=>true,
+            :uniqueness=>{:case_sensitive=>false},
             :presence=>true
+  validate  :check_name_uniqueness
   
   ## FRIENDLY_ID
   extend FriendlyId
@@ -43,4 +44,10 @@ class Organization < ActiveRecord::Base
     membership.membership_type = 'user'
     membership.save!
   end
+
+  private
+    def check_name_uniqueness
+      ex = User.where('username ilike ?', self.name).exists?
+      errors.add(:name, 'is taken') if ex or User::FORBIDDEN_NAMES.member?(self.name.downcase.strip)
+    end
 end
