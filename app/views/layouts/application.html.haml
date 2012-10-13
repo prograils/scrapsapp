@@ -20,11 +20,11 @@
             .span3
               %ul.nav.nav-pills.nav-stacked
                 %li
-                  = link_to "#" do
+                  = link_to root_path, :class=>"p" do
                     = draw_icon 'inbox'
                     Dashboard
                 %li
-                  = link_to "#" do
+                  = link_to starred_path, :class=>"p" do
                     = draw_icon 'star'
                     Starred
                     %span.badge 0
@@ -39,17 +39,17 @@
                         %ul.nav.nav-list
                           %li.nav-header Folders
                           %li.divider/
-                          %li= link_to 'All scraps', [org, :scraps]
-                          %li= link_to 'Group overview', [org]
+                          %li= link_to 'All scraps', [org, :scraps], :class=>"p"
+                          %li= link_to 'Group overview', [org], :class=>"p"
             .span9
               = render 'layouts/messages'
-              = yield
-        - else
-          .content
-            .row
-              .span12
-                = render 'layouts/messages'
+              #content_wrapper
                 = yield
+        - else
+          .row
+            .span12
+              = render 'layouts/messages'
+              = yield
           %footer
       / ! end of .container
     / ! end of #main

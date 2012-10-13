@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  FORBIDDEN_NAMES = %w( www mail admin public edit destroy new create update )
+  FORBIDDEN_NAMES = %w( www mail admin public edit destroy new create update starred )
 
   ## SCOPES
   scope :ordered, order('username ASC')

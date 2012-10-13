@@ -1,2 +1,16 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.hero-unit
+  %h1 ScrapsApp
+  %p Final place for all your code scraps
+  %p
+    = link_to new_user_registration_path, :class=>"btn btn-large btn-primary" do
+      %span.btn-label Sign up today!
+.well
+  ScrapsApp is code scraps collecting tool (aka snippets) with possibility to share them within a team or designated friend. App is created from need - almost everyday we have problems in office with sharing code - with one person (ie. email config) or with whole team (deployment scripts). 
+  Of course you can use gist for it. But I want those scraps to be permanent, correctly described / tagged and searchable within an organization (or maybe even beyond it).
+  App created by one man 
+  = surround "(", ")" do
+    = link_to "@mlitwiniuk", "http://twitter.com/mlitwiniuk"
+  team
+  = surround "(", ")" do
+    = link_to "Prograils.com", "http://prograils.com"
+  durign 48h Rails coding marathon Rails Rumble 2012.

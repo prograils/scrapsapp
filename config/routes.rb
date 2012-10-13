@@ -1,5 +1,8 @@
 ScrapsApp::Application.routes.draw do
 
+
+  get "starred" => "dashboard#starred", :as=>:starred
+
   resources :organizations do
     collection do
       get :public
@@ -13,6 +16,9 @@ ScrapsApp::Application.routes.draw do
     end
   end
 
-  root :to => "home#index"
   devise_for :users
+  authenticated :user do
+    root :to => 'dashboard#index'
+  end
+  root :to => "home#index"
 end
