@@ -31,3 +31,8 @@
   -moz-border-radius: 2px;
   border-radius: 2px;
 }
+.linenos, .linenodiv{
+  width: 60px !important;
+  vertical-align: top;
+}
+.highlight pre { white-space: pre !important; overflow: auto; }
