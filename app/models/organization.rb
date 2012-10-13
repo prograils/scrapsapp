@@ -6,6 +6,8 @@ class Organization < ActiveRecord::Base
 
   ## ASSOCIATIONS
   belongs_to :user
+  has_many :memberships, :dependent=>:destroy
+  has_many :users, :through=>:memberships, :source=>:user
 
   ## VALIDATIONS
   validates :name,
@@ -22,5 +24,17 @@ class Organization < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def make_admin(u)
+    membership = self.memberships.where(:user_id=>u.id).first_or_initialize 
+    membership.membership_type = 'admin'
+    membership.save!
+  end
+
+  def make_user(u)
+    membership = self.memberships.where(:user_id=>u.id).first_or_initialize 
+    membership.membership_type = 'user'
+    membership.save!
   end
 end

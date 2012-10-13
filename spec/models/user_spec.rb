@@ -3,6 +3,9 @@ require 'spec_helper'
 describe User do
   it { should validate_presence_of(:username) }
   it { should have_one(:private_organization) }
+  it { should have_many(:memberships) }
+  it { should have_many(:organizations) }
+  it { should have_many(:managed_organizations) }
 
   context :uniquness do
     before(:each) do

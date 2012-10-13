@@ -36,7 +36,7 @@ Spork.prefork do
     # controller_macros.rb
     config.include Devise::TestHelpers, :type => :controller
     config.extend ControllerMacros, :type => :controller
-    config.extend ControllerMacros, :type => :request
+    config.include RequestMacros, :type => :request
   end
 
 end

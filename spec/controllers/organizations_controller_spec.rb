@@ -36,10 +36,13 @@ describe OrganizationsController do
 
   login_user
 
+  render_views
+
   describe "GET index" do
     it "assigns all possible organizations as @organizations" do
       organization = Organization.create! valid_attributes
-      get :index, {}, valid_session
+      organization.make_user(@user)
+      get :index, {}
       assigns(:organizations).should eq([organization])
     end
 
@@ -56,7 +59,8 @@ describe OrganizationsController do
   describe "GET edit" do
     it "assigns the requested organization as @organization" do
       organization = Organization.create! valid_attributes
-      get :edit, {:id => organization.to_param}, valid_session
+      organization.make_admin(@user)
+      get :edit, {:id => organization.to_param}
       assigns(:organization).should eq(organization)
     end
   end
@@ -65,13 +69,15 @@ describe OrganizationsController do
     describe "with valid params" do
       it "assigns the requested organization as @organization" do
         organization = Organization.create! valid_attributes
-        put :update, {:id => organization.to_param, :organization => valid_attributes}
+        organization.make_admin(@user)
+        put :update, {:id => organization.to_param, :organization => {:name=>organization.name}}
         assigns(:organization).should eq(organization)
       end
 
       it "redirects to the organization" do
         organization = Organization.create! valid_attributes
-        put :update, {:id => organization.to_param, :organization => valid_attributes}
+        organization.make_admin(@user)
+        put :update, {:id => organization.to_param, :organization => {:name=>organization.name}}
         response.should redirect_to(organization)
       end
     end
@@ -80,6 +86,7 @@ describe OrganizationsController do
   describe "DELETE destroy" do
     it "destroys the requested organization" do
       organization = Organization.create! valid_attributes
+      organization.make_admin(@user)
       expect {
         delete :destroy, {:id => organization.to_param}
       }.to change(Organization, :count).by(-1)
@@ -87,6 +94,7 @@ describe OrganizationsController do
 
     it "redirects to the organizations list" do
       organization = Organization.create! valid_attributes
+      organization.make_admin(@user)
       delete :destroy, {:id => organization.to_param}
       response.should redirect_to(organizations_url)
     end

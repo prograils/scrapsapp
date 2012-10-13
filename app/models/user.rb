@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
 
   ## ASSOCIATIONS
   has_one :private_organization, :class_name=>"Organization"
+  has_many :memberships, :dependent=>:destroy
+  has_many :organizations, :through=>:memberships, :source=>:organization
+  has_many :managed_organizations, :through=>:memberships, :source=>:organization, 
+            :class_name=>"Organization", :conditions=>['membership_type=?', 'admin']
 
   ## DEVISE
   devise :database_authenticatable, :registerable, :confirmable,

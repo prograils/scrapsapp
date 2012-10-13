@@ -10,12 +10,13 @@ module ControllerMacros
     end
   end
 
-  def login_user
+  def login_user(user=nil)
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      @user = FactoryGirl.create(:user)
+      @user = user.blank? ? FactoryGirl.create(:user) : user
       @user.confirm! 
       sign_in @user
     end
   end
+
 end
