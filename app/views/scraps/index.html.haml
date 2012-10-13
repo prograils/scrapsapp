@@ -12,10 +12,10 @@
       %td= scrap.is_public
       %td
         - if current_user and scrap.organization.users.member?(current_user)
-          = link_to 'Show', [@organization, scrap]
-          = link_to 'Edit', [:edit, @organization, scrap]
+          = link_to 'Show', [@organization, scrap], :class=>'p'
+          = link_to 'Edit', [:edit, @organization, scrap], :class=>'p'
           = link_to 'Destroy', [@organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 - if current_user and @organization.users.member?(current_user)
-  = link_to 'New Scrap', [:new, @organization, :scrap]
+  = link_to 'New Scrap', [:new, @organization, :scrap], :class=>'p'

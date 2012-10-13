@@ -19,6 +19,7 @@ gem "nested_form"
 gem 'pygments.rb'
 gem 'redcarpet'
 gem 'nokogiri'
+gem 'gravatar_image_tag'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development
