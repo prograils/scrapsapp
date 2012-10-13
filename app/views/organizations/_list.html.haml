@@ -1,0 +1,27 @@
+%p 
+  Organizations can bind together users from same company, working on same project, 
+  etc. All code scraps you post within an organization will be visible to all 
+  organization members.
+
+%table.table
+  %tr
+    %th= sort_link q, :name, :title=>"Organization name"
+    %th= sort_link q, :memberships_count, :title=>"Memberships count"
+    - if can_manage
+      %th
+  %tbody
+    - organizations.each do |organization|
+      %tr
+        %td= link_to organization.name, organization
+        %td= organization.memberships_count
+        - if can_manage and organization.admins.member?(current_user)
+          %td
+            = link_to 'Show', organization
+            \|
+            = link_to 'Edit', edit_organization_path(organization)
+            \|
+            = link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Organization', new_organization_path

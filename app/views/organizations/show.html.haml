@@ -1,6 +1,15 @@
-%p#notice= notice
 
+%h1= @organization.name
 
-= link_to 'Edit', edit_organization_path(@organization)
-\|
+- if @organization.user.blank?
+  %h5 Organization members:
+  %ul
+    - @organization.users.ordered.find_each do |u|
+      %li= link_to u.username, u.private_organization
+
+  - if @organization.admins.member?(current_user)
+    = link_to 'Edit', edit_organization_path(@organization)
+    \|
+    = link_to 'Add or remove members', members_organization_path(@organization)
+    \|
 = link_to 'Back', organizations_path

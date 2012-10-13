@@ -3,12 +3,14 @@ class Membership < ActiveRecord::Base
   
   ## ASSOCIATIONS
   belongs_to :user
-  belongs_to :organization
+  belongs_to :organization, :counter_cache=>true
 
   ## VALIDATIONS
   validates :membership_type,
             :presence=>true,
             :inclusion=>{:in=>Membership::MEMBERSHIP_TYPES}
+  validates :user_id,
+            :uniqueness=>{:scope=>:organization_id}
 
 
   ## ACCESSIBLE

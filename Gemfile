@@ -13,6 +13,9 @@ gem "devise", ">= 2.1.2"
 gem "simple_form", ">= 2.0.3"
 gem "friendly_id", "~> 4.0.1"
 gem "inherited_resources"
+gem "kaminari"
+gem "ransack"
+gem "nested_form"
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

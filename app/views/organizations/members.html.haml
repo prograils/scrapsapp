@@ -1,0 +1,19 @@
+%h1
+  = @organization.name
+  members
+
+= simple_nested_form_for @organization do |f|
+  = f.hidden_field :permissions, :value=>true
+  = f.error_notification
+  .form-inputs
+    %ul
+      = f.fields_for :memberships do |fm|
+        - sameuser = fm.object.user_id == current_user.id and fm.object.persisted?
+        %li 
+          = fm.select :user_id, User.ordered.all.map{|u| [u.username, u.id]}, {:include_blank=>true}, {:readonly=>sameuser, :disabled=>sameuser}
+          = fm.select :membership_type, Membership::MEMBERSHIP_TYPES, {:include_blank=>true}, {:readonly=>sameuser, :disabled=>sameuser}
+          - unless sameuser
+            = fm.link_to_remove "del"
+      = f.link_to_add "add new member", :memberships
+  .form-actions
+    = f.submit "Save", :class=>"btn"

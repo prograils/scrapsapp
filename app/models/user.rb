@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   ## SCOPES
+  scope :ordered, order('username ASC')
 
   ## ASSOCIATIONS
   has_one :private_organization, :class_name=>"Organization"
