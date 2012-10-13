@@ -35,8 +35,8 @@ Spork.prefork do
     config.order = "random"
     # controller_macros.rb
     config.include Devise::TestHelpers, :type => :controller
-    #config.extend ControllerMacros, :type => :controller
-    #config.extend ControllerMacros, :type => :request
+    config.extend ControllerMacros, :type => :controller
+    config.extend ControllerMacros, :type => :request
   end
 
 end
