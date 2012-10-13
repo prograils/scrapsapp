@@ -2,7 +2,7 @@ require './config/boot'
 #require 'airbrake/capistrano'
 require "bundler/capistrano"
 require 'hipchat/capistrano'
-require "delayed/recipes"
+#require "delayed/recipes"
 
 ## RBENV
 set :default_environment, {
@@ -20,6 +20,7 @@ load 'deploy/assets'
 set :application, "deploy"
 set :repository,  "git@github.com:railsrumble/r12-team-31.git"
 set :user, "deploy"
+set :use_sudo, false
 
 set :scm, :git
 set :deploy_to, "/home/deploy/scrapsapp/"
@@ -66,25 +67,25 @@ namespace :db do
   after "deploy:finalize_update", "db:symlink"
 end
 
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+#after "deploy:stop",    "delayed_job:stop"
+#after "deploy:start",   "delayed_job:start"
+#after "deploy:restart", "delayed_job:restart"
 
 #https://gist.github.com/178397
 #https://github.com/collectiveidea/delayed_job/issues/3
 
-namespace :delayed_job do
-  desc "Restart the delayed_job process"
-  task :restart, :roles => lambda { roles } do
-    stop
-    wait_for_process_to_end('delayed_job')
-    start
-  end
+#namespace :delayed_job do
+  #desc "Restart the delayed_job process"
+  #task :restart, :roles => lambda { roles } do
+    #stop
+    #wait_for_process_to_end('delayed_job')
+    #start
+  #end
 
-  def wait_for_process_to_end(process_name)
-    run "COUNT=1; until [ $COUNT -eq 0 ]; do COUNT=`ps -ef | grep -v 'ps -ef' | grep -v 'grep' | grep -i '#{process_name}'|wc -l` ; echo 'waiting for #{process_name} to end' ; sleep 2 ; done"
-  end
-end
+  #def wait_for_process_to_end(process_name)
+    #run "COUNT=1; until [ $COUNT -eq 0 ]; do COUNT=`ps -ef | grep -v 'ps -ef' | grep -v 'grep' | grep -i '#{process_name}'|wc -l` ; echo 'waiting for #{process_name} to end' ; sleep 2 ; done"
+  #end
+#end
 
 namespace :deploy do
   namespace :assets do
