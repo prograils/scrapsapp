@@ -6,7 +6,7 @@ class Scrap < ActiveRecord::Base
   ## ASSOCIATIONS
   belongs_to :user
   belongs_to :organization
-  #has_many :single_files, :dependent=>:destroy
+  has_many :single_files, :dependent=>:destroy
 
   ## VALIDATIONS
   validates :title, 
@@ -15,9 +15,12 @@ class Scrap < ActiveRecord::Base
   ## FRIENDLY_ID
   extend FriendlyId
   friendly_id :title, use: :slugged
+
+  ## ANAF
+  accepts_nested_attributes_for :single_files
   
   ## ACCESSIBLE
-  attr_accessible :description, :is_public, :title
+  attr_accessible :description, :is_public, :title, :single_files_attributes
 
   def to_s
     self.title

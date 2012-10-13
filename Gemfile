@@ -16,6 +16,8 @@ gem "inherited_resources"
 gem "kaminari"
 gem "ransack"
 gem "nested_form"
+gem 'pygments.rb'
+gem 'redcarpet'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development
