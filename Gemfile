@@ -17,17 +17,24 @@ group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development
   gem "hpricot", ">= 0.8.6", :group => :development
   gem "ruby_parser", ">= 2.3.1", :group => :development
-  gem "capistrano"
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-process'
+  gem 'capistrano', :require=>false
+  gem 'hipchat', :require=>false
 end
 
 group :test do
-  gem "shoulda-matchers"
   gem "capybara", ">= 1.1.2"
   gem "email_spec", ">= 1.2.1"
   gem "database_cleaner"
+  gem 'spork-rails'
+  gem 'guard-spork'
 end
 
 group :development, :test do
   gem "rspec-rails", ">= 2.11.0"
   gem "factory_girl_rails", ">= 4.1.0", :group => [:development, :test]
+  gem "shoulda-matchers"
+  gem 'rb-fsevent', '~> 0.9.1'
 end
