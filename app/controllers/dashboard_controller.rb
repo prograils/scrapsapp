@@ -14,4 +14,9 @@ class DashboardController < ApplicationController
     @q = Scrap.public.where('organization_id in (?) or user_id in (?)', observed_ids, user_ids).search(params[:q])
     @scraps = @q.result(:distinct=>true).page(params[:page])
   end
+
+  def my
+    @q = current_user.scraps.search(params[:q])
+    @scraps = @q.result(:distinct=>true).page(params[:page])
+  end
 end

@@ -3,6 +3,7 @@ ScrapsApp::Application.routes.draw do
 
   get "starred" => "dashboard#starred", :as=>:starred
   get "observed" => "dashboard#observed", :as=>:observed
+  get "my" => "dashboard#my", :as=>:my
 
   resources :organizations do
     collection do
