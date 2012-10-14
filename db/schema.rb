@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014135554) do
+ActiveRecord::Schema.define(:version => 20121014150615) do
+
+  create_table "folders", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "folders", ["organization_id"], :name => "index_folders_on_organization_id"
+  add_index "folders", ["slug"], :name => "index_folders_on_slug", :unique => true
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -70,8 +81,10 @@ ActiveRecord::Schema.define(:version => 20121014135554) do
     t.boolean  "is_public",       :default => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.integer  "folder_id"
   end
 
+  add_index "scraps", ["folder_id"], :name => "index_scraps_on_folder_id"
   add_index "scraps", ["organization_id"], :name => "index_scraps_on_organization_id"
   add_index "scraps", ["slug", "organization_id"], :name => "index_scraps_on_slug_and_organization_id", :unique => true
   add_index "scraps", ["user_id"], :name => "index_scraps_on_user_id"

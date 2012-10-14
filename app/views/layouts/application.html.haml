@@ -46,7 +46,12 @@
                       .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
                         .sidebar-nav
                           %ul.nav.nav-list
-                            %li.nav-header Folders
+                            %li.nav-header 
+                              Folders
+                            - unless org.folders.empty?
+                              %ul
+                                - org.folders.ordered.each do |f|
+                                  %li= link_to f.name, [org, f, :scraps], :class=>"p"
                             %li.divider/
                             %li
                               = link_to [:new, org, :scrap], :class=>"p" do

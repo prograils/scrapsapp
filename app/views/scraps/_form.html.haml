@@ -4,7 +4,8 @@
   .form-inputs
     = f.input :title
     = f.input :is_public
-    = f.input :description, :input_html=>{:class=>"input-xxlarge", :rows=>"3"}
+    = f.association :folder
+    = f.input :description, :input_html=>{:class=>"input-xxlarge", :rows=>"2"}
     %hr/
     = f.fields_for :single_files do |fsf|
       = fsf.input :name

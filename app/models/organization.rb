@@ -16,6 +16,7 @@ class Organization < ActiveRecord::Base
   has_many :observing_users, :through=>:observers, :source=>:user, :class_name=>"User"
   has_many :timeline_events, :as=>:secondary_subject, :dependent=>:destroy
   has_many :actored_timeline_events, :as=>:actor, :dependent=>:destroy
+  has_many :folders, :dependent=>:destroy
 
 
   ## VALIDATIONS

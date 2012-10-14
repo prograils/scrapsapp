@@ -4,16 +4,21 @@ class ScrapsController < ApplicationController
   before_filter :find_public_scrap, :only=>[:show, :star, :unstar]
   before_filter :find_and_check_ownership, :except=>[:index, :show, :new, :create, :star, :unstar]
   before_filter :check_organization_membership, :only=>[:new, :create]
+  before_filter :find_folder
 
 
   inherit_resources
   belongs_to :organization
+  belongs_to :folder, :optional=>true
 
   ## inherited overwrites
   def index
     @q = @organization.scraps
     unless @organization.users.member?(current_user)
       @q = @q.public
+    end
+    if @folder.present?
+      @q = @q.where(:folder_id=>@folder.id)
     end
     @q = @q.search(params[:q])
     @scraps = @q.result(:distinct=>true).page(params[:page])
@@ -62,6 +67,10 @@ class ScrapsController < ApplicationController
 
     def check_organization_membership
       redirect_to(root_url) unless @organization.users.member?(current_user)
+    end
+    
+    def find_folder
+      @folder = @organization.folders.find(params[:folder_id]) unless params[:folder_id].blank?
     end
   
 end

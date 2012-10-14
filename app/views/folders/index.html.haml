@@ -1,0 +1,17 @@
+%h1 Folders management
+
+%table.table
+  %tr
+    %th Folder name
+    %th{:width=>"50"}
+
+  - @folders.each do |folder|
+    %tr
+      %td= link_to folder.name, [@organization, folder]
+      %td
+        = link_to draw_icon('edit'), [:edit, @organization, folder]
+        = link_to draw_icon('trash'), [@organization, folder], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Folder', [:new, @organization, :folder]

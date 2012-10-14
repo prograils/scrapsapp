@@ -6,7 +6,7 @@ ScrapsApp::Application.routes.draw do
   get "my" => "dashboard#my", :as=>:my
   get "delete_oauth/:id" => "dashboard#delete_oauth", :as=>:delete_oauth
 
-  resources :organizations do
+  resources :organizations, :path=>"o" do
     collection do
       get :public
     end
@@ -16,7 +16,10 @@ ScrapsApp::Application.routes.draw do
       get :stop_observing
     end
     
-    resources :scraps do 
+    resources :folders, :path=>"f" do
+      resources :scraps, :path=>"s", :only=>[:show, :index]
+    end
+    resources :scraps, :path=>"s" do 
       member do
         get :star
         get :unstar

@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
   after_update :change_organization_name
 
 
+  def member_of?(org)
+    self.memberships.where(:organization_id=>org.id).exists?
+  end
+
   def self.from_omniauth(provider, auth, create_candidate=true)
     credentials = OauthCredential.where(:uid=>auth["uid"]).where(:provider=>provider).first
     user = nil

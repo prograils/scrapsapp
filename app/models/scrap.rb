@@ -6,6 +6,7 @@ class Scrap < ActiveRecord::Base
   ## ASSOCIATIONS
   belongs_to :user
   belongs_to :organization
+  belongs_to :folder
   has_many :single_files, :dependent=>:destroy
   has_many :stars, :dependent=>:destroy
   has_many :starring_users, :through=>:stars, :source=>:user, :class_name=>"User"
@@ -23,7 +24,7 @@ class Scrap < ActiveRecord::Base
   accepts_nested_attributes_for :single_files
   
   ## ACCESSIBLE
-  attr_accessible :description, :is_public, :title, :single_files_attributes
+  attr_accessible :description, :is_public, :title, :single_files_attributes, :folder_id
 
   ## TIMELINE FU
   fires :scrap_created,  :on => :create,

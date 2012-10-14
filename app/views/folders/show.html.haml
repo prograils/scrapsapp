@@ -1,0 +1,7 @@
+%h1= @folder.name
+
+
+- if current_user and current_user.organizations.member?(@organization)
+  = link_to 'Edit', [:edit, @organization, @folder]
+  \|
+  = link_to 'Back', [@organization, :folders]

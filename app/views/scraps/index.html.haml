@@ -8,7 +8,7 @@
 
   - @scraps.each do |scrap|
     %tr
-      %td= link_to scrap.title, [@organization, scrap]
+      %td= link_to scrap.title, get_scrap_path(@organization, scrap)
       %td= scrap.is_public
       %td
         - if current_user and scrap.organization.users.member?(current_user)
