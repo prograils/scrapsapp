@@ -4,6 +4,14 @@
   %p
     = link_to new_user_registration_path, :class=>"btn btn-large btn-primary" do
       %span.btn-label Sign up today!
+#appriaciate_work.alert
+  %button{:type=>"button", :class=>"close", :'data-dismiss'=>"alert"} x
+  If you like my work, please consider 
+  = link_to "favouriting", "http://railsrumble.com/entries/31-prograils"
+  my app on 
+  = succeed "." do
+    = link_to "Rails Rumble 2012 contest page", "http://railsrumble.com/entries/31-prograils"
+  Thanks!
 .well
   ScrapsApp is code scraps collecting tool (aka snippets) with possibility to share them within a team or designated friend. App is created from need - almost everyday we have problems in office with sharing code - with one person (ie. email config) or with whole team (deployment scripts). 
   Of course you can use gist for it. But I want those scraps to be permanent, correctly described / tagged and searchable within an organization (or maybe even beyond it).
@@ -17,4 +25,54 @@
   %br/
   %br/
   There are still some thing that needs to be done:
-  = link_to "ScrapsApp todo", "http://scrapsapp.com/o/prograils/s/scrapsapp-todo"
+  = link_to "ScrapsApp todo", "http://scrapsapp.com/o/prograils/s/scrapsapp-todo", :style=>"padding-left: 5px;"
+.well
+  %p{:style=>"margin-right: 5px;"}
+    = image_tag '/syntax_highlight.png', :align=>"right"
+    Store all your code scraps in one place, make use of great syntaxt highlighting! 
+    Application makes direct use of great Pygments library - there are more than 100
+    languages and templating languages supported at the moment - so there is very small chance,
+    that ScrapsApp will not satisfy your needs. Also - every code scrap (or snippet, if you like)
+    can be created from many files. 
+    %br/
+    %br/
+    %hr/
+    %br/
+    %br/
+    = image_tag '/user_management.png', :align=>"left"
+    %br/
+    %br/
+    Make use of simple, but powerful enough user management - You control, who can browse your snippets,
+    add new or edit existing.
+    %br/
+    %br/
+    %hr/
+    %br/
+    %br/
+    = image_tag '/observed_starred.png', :align=>"right"
+    %br/
+    %br/
+    Collect useful scraps, star them and make them easier to find. You can star all public scraps
+    or all, that belong to any organization, you have access to. Observed is virtual directory
+    that collects all scraps created by observed users or within observed organizations.
+    %br/
+    %br/
+    %hr/
+    %br/
+    %br/
+    = image_tag '/timeline.png', :align=>"left"
+    %br/
+    %br/
+    You can keep track of every actions, thats is generated in one of your organizations, 
+    organizations observed by you or by users who you follow. 
+    %br/
+    %br/
+    %hr/
+    %br/
+    %br/
+    = image_tag '/folders.png', :align=>"right"
+    %br/
+    %br/
+    And last but not least - you can categorize all you code scraps into categories 
+    (or folders, as I like to call them)
+  .clear
