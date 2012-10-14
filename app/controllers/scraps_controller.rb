@@ -21,7 +21,7 @@ class ScrapsController < ApplicationController
       @q = @q.where(:folder_id=>@folder.id)
     end
     @q = @q.search(params[:q])
-    @scraps = @q.result(:distinct=>true).ordered.page(params[:page]).per(2)
+    @scraps = @q.result(:distinct=>true).ordered.page(params[:page])
   end
 
   def new

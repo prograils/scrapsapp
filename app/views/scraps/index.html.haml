@@ -14,8 +14,9 @@
   = render :partial => 'single_scrap', :locals=>{:scrap=>scrap, :show_all=>false}
 
 = paginate @scraps
-%br
-- if current_user and @organization.users.member?(current_user)
-  = link_to  [:new, @organization, :scrap], :class=>'p' do
-    = draw_icon('plus-sign')
-    Add new scrap
+- if not @scraps.empty? and @scraps.count>0
+  %br
+  - if current_user and @organization.users.member?(current_user)
+    = link_to  [:new, @organization, :scrap], :class=>'p' do
+      = draw_icon('plus-sign')
+      Add new scrap

@@ -9,10 +9,10 @@ class DashboardController < ApplicationController
     org_ids = current_user.organizations.all.map(&:id) || []
     #org_ids.delete(current_user.private_organization.id)
     observed_ids = current_user.observed_organizations.all.map(&:id) || []
-    logger.info "te #{observed_ids.member?(current_user.private_organization.id)}"
+    logger.info "te #{observed_ids.join(", ")}"
     #observed_ids.delete(current_user.private_organization.id)
     logger.info "te #{observed_ids.member?(current_user.private_organization.id)}"
-    @timeline_events = TimelineEvent.joins("LEFT JOIN #{s} on #{te}.subject_id=#{s}.id").where("(subject_id is null and actor_id in (?)) OR (subject_id is not null and (#{s}.is_public=? or #{s}.organization_id in (?)))", observed_ids, true, org_ids).where('secondary_subject_id in (?)', observed_ids).where('actor_id != ?', current_user.private_organization.id).where("#{te}.created_at>?", current_user.confirmed_at).order("#{te}.created_at DESC").page(params[:page])
+    @timeline_events = TimelineEvent.joins("LEFT JOIN #{s} on #{te}.subject_id=#{s}.id").where("(subject_id is null and actor_id in (?)) OR (subject_id is not null and (#{s}.is_public=? or #{s}.organization_id in (?)))", observed_ids, true, org_ids).where('secondary_subject_id in (?) or actor_id in (?)', observed_ids, observed_ids).where('actor_id != ?', current_user.private_organization.id).where("#{te}.created_at>?", current_user.confirmed_at).order("#{te}.created_at DESC").page(params[:page])
     #@timeline_events = TimelineEvent.all
   end
 

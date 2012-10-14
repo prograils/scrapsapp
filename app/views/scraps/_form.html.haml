@@ -4,7 +4,7 @@
   .form-inputs
     = f.input :title
     = f.input :is_public
-    = f.association :folder
+    = f.association :folder, :collection=>@organization.folders.all
     = f.input :description, :input_html=>{:class=>"input-xxlarge", :rows=>"2"}
     %hr/
     = f.fields_for :single_files do |fsf|
