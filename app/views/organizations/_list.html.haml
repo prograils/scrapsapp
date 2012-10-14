@@ -16,12 +16,11 @@
         %td= organization.memberships_count
         - if can_manage and organization.admins.member?(current_user)
           %td
-            = link_to 'Show', organization
-            \|
-            = link_to 'Edit', edit_organization_path(organization)
-            \|
-            = link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to draw_icon('edit'), edit_organization_path(organization)
+            = link_to draw_icon('trash'), organization, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+= paginate organizations
 
-= link_to 'New Organization', new_organization_path
+- if current_user
+  = link_to 'Add organization', new_organization_path

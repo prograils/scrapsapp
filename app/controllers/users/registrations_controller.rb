@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :authenticate_user!, :except=>[:new, :create, :cancel]
   #before_filter :require_candidate!, :except=>[:new, :create, :cancel]
   before_filter :set_resource, :only=>[:update, :edit]
+  before_filter :skip_left_column, :only=>[:new, :create]
 
   def update
     @user = current_user

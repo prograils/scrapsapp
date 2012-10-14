@@ -2,3 +2,4 @@
 %ul
   - @scraps.each do |s|
     %li= link_to s.title, [s.organization, s], :class=>"p"
+= paginate @scraps

@@ -15,40 +15,57 @@
           = render 'layouts/navigation'
     #main{:role => "main", :class=>params[:action]}
       .container
-        - if current_user
+        - unless @skip_left_column
           .row
             .span3
-              %ul.nav.nav-pills.nav-stacked
-                %li
-                  = link_to root_path, :class=>"p" do
-                    = draw_icon 'inbox'
-                    Dashboard
-                %li
-                  = link_to starred_path, :class=>"p" do
-                    = draw_icon 'star'
-                    Starred
-                    %span.badge 0
-                %li
-                  = link_to observed_path, :class=>"p" do
-                    = draw_icon 'eye-open'
-                    Observed
-                %li
-                  = link_to my_path, :class=>"p" do
-                    = draw_icon 'user'
-                    My scraps
-              #nav_cordion.accordion
-                - current_user.organizations.each_with_index do |org, idx|
-                  .accordion-group
-                    .accordion-heading
-                      %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
-                        %strong= org.name
-                    .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
-                      .sidebar-nav
-                        %ul.nav.nav-list
-                          %li.nav-header Folders
-                          %li.divider/
-                          %li= link_to 'All scraps', [org, :scraps], :class=>"p"
-                          %li= link_to 'Group overview', [org], :class=>"p"
+              - if current_user
+                %ul.nav.nav-pills.nav-stacked
+                  %li
+                    = link_to root_path, :class=>"p" do
+                      = draw_icon 'inbox'
+                      Dashboard
+                  %li
+                    = link_to starred_path, :class=>"p" do
+                      = draw_icon 'star'
+                      Starred
+                      %span.badge 0
+                  %li
+                    = link_to observed_path, :class=>"p" do
+                      = draw_icon 'eye-open'
+                      Observed
+                  %li
+                    = link_to my_path, :class=>"p" do
+                      = draw_icon 'user'
+                      My scraps
+                #nav_cordion.accordion
+                  - current_user.organizations.each_with_index do |org, idx|
+                    .accordion-group
+                      .accordion-heading
+                        %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
+                          %strong= org.name
+                      .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
+                        .sidebar-nav
+                          %ul.nav.nav-list
+                            %li.nav-header Folders
+                            %li.divider/
+                            %li= link_to 'All scraps', [org, :scraps], :class=>"p"
+                            %li= link_to 'Group overview', [org], :class=>"p"
+              - else
+                %ul.nav.nav-pills.nav-stacked
+                  - if @organization
+                    %h4= @organization.name
+                    %li
+                      = link_to  [@organization, :scraps] do
+                        All scraps
+                        %span.badge= @organization.scraps.public.count
+                    %li= link_to 'Group overview', [@organization]
+                  - else
+                    %li
+                      = link_to [:public, :organizations] do
+                        All organizations
+                        %span.badge= Organization.public.count(:id)
+
+                
             .span9
               = render 'layouts/messages'
               #content_wrapper

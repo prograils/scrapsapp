@@ -61,7 +61,7 @@ class OrganizationsController < ApplicationController
 
 
   private
-    def beginning_of_association_chain
+    def begin_of_association_chain
       current_user
     end
 

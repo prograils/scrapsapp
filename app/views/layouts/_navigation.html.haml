@@ -6,12 +6,12 @@
       = link_to 'Login', new_user_session_path
   - if user_signed_in?
     %li
-      = link_to 'Your organizations', organizations_path
-    %li
-      = link_to 'All organizations', public_organizations_path
+      = link_to 'My organizations', organizations_path
   - else
     %li
       = link_to 'Sign up', new_user_registration_path
+  %li
+    = link_to 'All organizations', public_organizations_path
 .btn-group.pull-right
   - if user_signed_in?
     %a.btn.dropdown-toggle{:'data-toggle'=>"dropdown", :href=>"#"}

@@ -22,7 +22,8 @@ ScrapsApp::Application.routes.draw do
   end
 
   devise_for :users, :controllers => {
-                                :registrations  => "users/registrations"
+                                :registrations  => "users/registrations",
+                                :sessions  => "users/sessions"
                               }
   match 'auth/:provider/callback', to: 'omniauth_callbacks#callback'
   match 'auth/failure', to: redirect('/')

@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
         "application"
       end
     end
+
+    def skip_left_column
+      @skip_left_column = true
+    end
 end
