@@ -2,6 +2,7 @@ class Scrap < ActiveRecord::Base
 
   ## SCOPES
   scope :public, where("#{Scrap.quoted_table_name}.is_public=?", true)
+  scope :ordered, order("#{Scrap.quoted_table_name}.created_at DESC")
 
   ## ASSOCIATIONS
   belongs_to :user

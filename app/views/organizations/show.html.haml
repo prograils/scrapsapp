@@ -1,23 +1,41 @@
 
-%h1= @organization.name
+%div.group_wrapper
+  %div.pull-right{:style=>"margin-right: 10px;"}
+    - if @organization.user.blank?
+      %h5 Organization members:
+      %ul.unstyled
+        - @organization.users.ordered.find_each do |u|
+          %li
+            = gravatar_image_tag u.email, :class=>"user_image", :gravatar => { :size => 15 }
+            = link_to u.username, u.private_organization, :class=>"o"
+    - else
+      = gravatar_image_tag @organization.user.email, :class=>"user_image", :gravatar => { :size => 50 }
+  %h1= @organization.name
+  %br/
+  = link_to "Scraps:", [@organization, :scraps]
+  %span.badge
+    - if current_user and current_user.member_of?(@organization)
+      = @organization.scraps.count(:id)
+    - else
+      = @organization.scraps.public.count
 
-- if @organization.user.blank?
-  %h5 Organization members:
-  %ul
-    - @organization.users.ordered.find_each do |u|
-      %li= link_to u.username, u.private_organization
+  
+  .btn-toolbar
+    .btn-group
+      - if current_user and @organization.user_id!=current_user.id
+        - if current_user.observed_organizations.member?(@organization)
+          = link_to [:stop_observing, @organization], :class=>"btn btn-inverse disabled", :title=>"Stop observing" do
+            = draw_icon('star', :class=>"")
+        - else
+          = link_to [:observe, @organization], :class=>"btn btn-inverse disabled", :title=>"Observe" do
+            = draw_icon('star', :class=>"icon-white")
+        - if @organization.admins.member?(current_user)
+          = link_to edit_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Edit" do
+            = draw_icon('pencil', :class=>"icon-white")
+          = link_to members_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Manage users" do
+            = draw_icon('user', :class=>"icon-white")
+      - if current_user and current_user.member_of?(@organization) 
+        = link_to [@organization, :folders], :class=>"btn btn-inverse disabled", :title=>"Manage folders" do
+          = draw_icon('folder-open', :class=>"icon-white")
+  .clear/
 
-  - if @organization.admins.member?(current_user)
-    = link_to 'Edit', edit_organization_path(@organization)
-    \|
-    = link_to 'Add or remove members', members_organization_path(@organization)
-    \|
-- if current_user and current_user.member_of?(@organization)
-  = link_to 'Manage folders', [@organization, :folders]
-  \|
-- if current_user and @organization.user_id!=current_user.id
-  - if current_user.observed_organizations.member?(@organization)
-    = link_to "stop observing", [:stop_observing, @organization]
-  - else
-    = link_to "observe!", [:observe, @organization]
-= link_to 'Back', organizations_path

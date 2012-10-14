@@ -3,6 +3,11 @@
   etc. All code scraps you post within an organization will be visible to all 
   organization members.
 
+- if current_user
+  = link_to new_organization_path do
+    = draw_icon('plus-sign')
+    Create new organization
+
 %table.table
   %tr
     %th= sort_link q, :name, "Organization name"
@@ -23,4 +28,6 @@
 = paginate organizations
 
 - if current_user
-  = link_to 'Add organization', new_organization_path
+  = link_to new_organization_path do
+    = draw_icon('plus-sign')
+    Create new organization
