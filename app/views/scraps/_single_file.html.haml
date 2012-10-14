@@ -1,0 +1,11 @@
+%strong
+  - if sf.directory and sf.directory!="."
+    %small
+      = succeed "/" do
+        = sf.directory
+  = sf.file_name
+.well.well-small
+  - unless sf.lexer_type.present?
+    Not recognized file, sorry
+  - else
+    = render :partial=>"/scraps/highlight_#{sf.lexer_type}", :locals=>{:single_file=>sf}

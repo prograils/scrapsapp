@@ -46,13 +46,29 @@
     margin: 0 10px 0 0;
   }
 }
-.group_wrapper{
+.group_wrapper, .scrap_wrapper{
   border: 1px solid lightgrey;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   padding: 5px;
+  margin-bottom: 10px;
 }
 .clear{
   clear: both;
 }
+.scrap_title{
+  padding-top: 6px;
+  padding-left: 10px;
+}
+.links .btn.disabled, .btn[disabled]{
+  cursor: pointer;
+}
+.scrap_wrapper{
+  .badge.file_number{
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+}
+
+

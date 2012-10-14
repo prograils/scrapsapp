@@ -20,15 +20,15 @@
       = @organization.scraps.public.count
 
   
-  .btn-toolbar
+  .btn-toolbar.links
     .btn-group
       - if current_user and @organization.user_id!=current_user.id
         - if current_user.observed_organizations.member?(@organization)
           = link_to [:stop_observing, @organization], :class=>"btn btn-inverse disabled", :title=>"Stop observing" do
-            = draw_icon('star', :class=>"")
+            = draw_icon('heart', :class=>"icon-white")
         - else
           = link_to [:observe, @organization], :class=>"btn btn-inverse disabled", :title=>"Observe" do
-            = draw_icon('star', :class=>"icon-white")
+            = draw_icon('heart', :class=>"")
         - if @organization.admins.member?(current_user)
           = link_to edit_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Edit" do
             = draw_icon('pencil', :class=>"icon-white")

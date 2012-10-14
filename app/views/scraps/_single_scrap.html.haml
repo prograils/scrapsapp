@@ -1,0 +1,31 @@
+.scrap_wrapper
+  .btn-toolbar.pull-left
+    .btn-grooup
+      %a.btn.btn-inverse.btn-mini.disabled{:title=>scrap.is_public? ? "Public" : "Private"}
+        = draw_icon('eye-open', :class=>scrap.is_public? ? "icon-white" : "")
+  %h3.pull-left.scrap_title
+    = link_to scrap.title, get_scrap_path(scrap.organization, scrap)
+  %span.badge.pull-left.file_number{:title=>"Associatied files: #{scrap.single_files.count(:id)}"}= scrap.single_files.count(:id)
+  .clear
+  %blockquote= simple_format scrap.description
+  - unless show_all
+    - sf = scrap.single_files.ordered.first
+    = render :partial => '/scraps/single_file', :locals=>{:sf=>sf}
+  - else
+    - scrap.single_files.each do |sf|
+      = render :partial => '/scraps/single_file', :locals=>{:sf=>sf}
+
+  .btn-toolbar.links
+    .btn-group
+      - if current_user 
+        - if current_user.starred_scraps.member?(scrap)
+          = link_to [:unstar, scrap.organization, scrap], :class=>"btn btn-inverse disabled", :title=>"Unstar" do
+            = draw_icon('star', :class=>"icon-white")
+        - else
+          = link_to [:star, scrap.organization, scrap], :class=>"btn btn-inverse disabled", :title=>"Star" do
+            = draw_icon('star', :class=>"")
+        - if current_user.member_of?(scrap.organization)
+          = link_to [:edit, scrap.organization, scrap], :class=>"btn btn-inverse disabled", :title=>"Edit" do
+            = draw_icon('pencil', :class=>"icon-white")
+          = link_to [scrap.organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-inverse disabled", title: "Delete" do
+            = draw_icon('trash', :class=>"icon-white")

@@ -1,25 +1,2 @@
-%h2= @scrap.title
-- if current_user
-  - if current_user.starred_scraps.where('scraps.id=?', @scrap.id).exists?
-    = link_to 'unstar :(', [:unstar, @organization, @scrap]
-  - else
-    = link_to 'star!', [:star, @organization, @scrap]
+= render :partial=>'/scraps/single_scrap', :locals=>{:scrap=>@scrap, :show_all=>true}
 
-%p
-  = simple_format @scrap.description
-- @scrap.single_files.each do |sf|
-  %strong
-    - if sf.directory
-      %small= sf.directory
-    = sf.file_name
-  .well.well-small
-    - unless sf.lexer_type.present?
-      Not recognized file, sorry
-    - else
-      = render :partial=>"highlight_#{sf.lexer_type}", :locals=>{:single_file=>sf}
-%hr/
-%p
-  - if current_user and @scrap.organization.users.member?(current_user)
-    = link_to 'Edit', [:edit, @organization, @scrap]
-    \|
-    = link_to 'Back', [@organization, :scraps]

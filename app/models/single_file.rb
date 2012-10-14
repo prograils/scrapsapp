@@ -1,6 +1,9 @@
 require 'tempfile'
 class SingleFile < ActiveRecord::Base
 
+  ## SCOPES
+  scope :ordered, order("#{SingleFile.quoted_table_name}.id ASC")
+
   ## ASSOCIATIONS
   belongs_to :scrap
 

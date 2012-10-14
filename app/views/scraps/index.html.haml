@@ -1,22 +1,21 @@
 = render :partial=>"/scraps/search_form"
-%h1 Listing scraps
+%h1
+  Listing scraps
+  - if @folder
+    in folder
+    = @folder.name
 
+- if current_user and @organization.users.member?(current_user)
+  = link_to  [:new, @organization, :scrap], :class=>'p' do
+    = draw_icon('plus-sign')
+    Add new scrap
 
-%table.table
-  %tr
-    %th Name
-    %th Is public
-    %th
+- @scraps.each do |scrap| 
+  = render :partial => 'single_scrap', :locals=>{:scrap=>scrap, :show_all=>false}
 
-  - @scraps.each do |scrap|
-    %tr
-      %td= link_to scrap.title, get_scrap_path(@organization, scrap)
-      %td= scrap.is_public
-      %td
-        - if current_user and scrap.organization.users.member?(current_user)
-          = link_to draw_icon('edit'), [:edit, @organization, scrap], :class=>'p'
-          = link_to draw_icon('trash'), [@organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }
-
+= paginate @scraps
 %br
 - if current_user and @organization.users.member?(current_user)
-  = link_to 'Add Scrap', [:new, @organization, :scrap], :class=>'p'
+  = link_to  [:new, @organization, :scrap], :class=>'p' do
+    = draw_icon('plus-sign')
+    Add new scrap

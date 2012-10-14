@@ -1,7 +1,6 @@
 = render :partial=>"/scraps/search_form"
 %h1 Starred scraps
 
-%ul
-  - @scraps.each do |s|
-    %li= link_to s.title, [s.organization, s], :class=>"p"
+- @scraps.each do |scrap|
+  = render :partial => '/scraps/single_scrap', :locals=>{:scrap=>scrap, :show_all=>false}
 = paginate @scraps
