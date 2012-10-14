@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
           user.username = auth["info"]["nickname"] || user.email
           user = fill_from_facebook(auth, user)
       end
-      if user.check_username_uniqueness
+      if user.check_username_uniqueness(true)
         check = true
         i = 1
         while check do
@@ -170,12 +170,14 @@ class User < ActiveRecord::Base
     user
   end
 
-    def check_username_uniqueness
+    def check_username_uniqueness(check_user=false)
       ex = Organization
       ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.public
       ex = ex.where('name ilike ?', self.username).exists?
-      ex || User::FORBIDDEN_NAMES.member?((self.username||"").downcase.strip)
-      ex
+      if check_user
+        check_user = User.where('username ilike ?', self.username).exists?
+      end
+      ex || User::FORBIDDEN_NAMES.member?((self.username||"").downcase.strip) || check_user
     end
 
   private

@@ -17,6 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       @user.oauth_one_time_token = nil
       @user.save
+      flash[:notice] = 'Account updated!'
       sign_in :user, @user, :bypass=>true , :event=>:authentication
       redirect_to root_url
     else
