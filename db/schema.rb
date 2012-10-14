@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013165435) do
+ActiveRecord::Schema.define(:version => 20121014084149) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20121013165435) do
 
   add_index "memberships", ["organization_id"], :name => "index_memberships_on_organization_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "oauth_credentials", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.text     "params"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "oauth_credentials", ["user_id"], :name => "index_oauth_credentials_on_user_id"
 
   create_table "observers", :force => true do |t|
     t.integer  "user_id"
@@ -112,6 +123,11 @@ ActiveRecord::Schema.define(:version => 20121013165435) do
     t.string   "last_name"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "github_profile"
+    t.string   "facebook_profile"
+    t.string   "oauth_one_time_token"
+    t.string   "photo"
+    t.string   "twitter_profile"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

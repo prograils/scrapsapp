@@ -10,6 +10,9 @@ gem "pg", ">= 0.14.1"
 gem "haml", ">= 3.1.7"
 gem "bootstrap-sass", ">= 2.1.0.0"
 gem "devise", ">= 2.1.2"
+gem 'omniauth-github'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem "simple_form", ">= 2.0.3"
 gem "friendly_id", "~> 4.0.1"
 gem "inherited_resources"
@@ -20,6 +23,8 @@ gem 'pygments.rb'
 gem 'redcarpet'
 gem 'nokogiri'
 gem 'gravatar_image_tag'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

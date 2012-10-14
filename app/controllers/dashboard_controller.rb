@@ -19,4 +19,9 @@ class DashboardController < ApplicationController
     @q = current_user.scraps.search(params[:q])
     @scraps = @q.result(:distinct=>true).page(params[:page])
   end
+
+  def delete_oauth
+    current_user.oauth_credentials.where(:provider=>params[:id]).first.destroy
+    redirect_to :back
+  end
 end
