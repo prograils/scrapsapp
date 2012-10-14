@@ -2,8 +2,8 @@
 %html
   %head
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %title= content_for?(:title) ? yield(:title) : "Scrapps App"
-      %meta{:content => content_for?(:description) ? yield(:description) : "Scrapps App", :name => "description"}
+      %title= content_for?(:title) ? yield(:title) : "ScrapsApp"
+      %meta{:content => content_for?(:description) ? yield(:description) : "ScrapsApp", :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
         = javascript_include_tag "application"
         = csrf_meta_tags
@@ -39,20 +39,21 @@
                       My scraps
                 #nav_cordion.accordion
                   - current_user.organizations.each_with_index do |org, idx|
-                    .accordion-group
-                      .accordion-heading
-                        %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
-                          %strong= org.name
-                      .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
-                        .sidebar-nav
-                          %ul.nav.nav-list
-                            %li.nav-header Folders
-                            %li.divider/
-                            %li= link_to 'All scraps', [org, :scraps], :class=>"p"
-                            %li= link_to 'Group overview', [org], :class=>"p"
+                    - if org.persisted?
+                      .accordion-group
+                        .accordion-heading
+                          %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
+                            %strong= org.name
+                        .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
+                          .sidebar-nav
+                            %ul.nav.nav-list
+                              %li.nav-header Folders
+                              %li.divider/
+                              %li= link_to 'All scraps', [org, :scraps], :class=>"p"
+                              %li= link_to 'Group overview', [org], :class=>"p"
               - else
                 %ul.nav.nav-pills.nav-stacked
-                  - if @organization
+                  - if @organization and @organization.persisted?
                     %h4= @organization.name
                     %li
                       = link_to  [@organization, :scraps] do
