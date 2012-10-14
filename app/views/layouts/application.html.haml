@@ -38,19 +38,19 @@
                       = draw_icon 'user'
                       My scraps
                 #nav_cordion.accordion
-                  - current_user.organizations.each_with_index do |org, idx|
-                    - if org.persisted?
-                      .accordion-group
-                        .accordion-heading
-                          %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
-                            %strong= org.name
-                        .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
-                          .sidebar-nav
-                            %ul.nav.nav-list
-                              %li.nav-header Folders
-                              %li.divider/
-                              %li= link_to 'All scraps', [org, :scraps], :class=>"p"
-                              %li= link_to 'Group overview', [org], :class=>"p"
+                  - @menu_organizations.each_with_index do |org, idx|
+                    .accordion-group
+                      .accordion-heading
+                        %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
+                          %strong= org.name
+                      .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
+                        .sidebar-nav
+                          %ul.nav.nav-list
+                            %li.nav-header Folders
+                            %li.divider/
+                            %li= link_to 'Add scrap', [:new, org, :scrap], :class=>"p"
+                            %li= link_to 'All scraps', [org, :scraps], :class=>"p"
+                            %li= link_to 'Group overview', [org], :class=>"p"
               - else
                 %ul.nav.nav-pills.nav-stacked
                   - if @organization and @organization.persisted?
