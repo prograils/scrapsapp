@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
     def get_menu_organizations
       if current_user
-        @menu_organizations = current_user.organizations.public
+        @menu_organizations = current_user.organizations
       end
     end
 end

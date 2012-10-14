@@ -26,6 +26,8 @@ gem 'gravatar_image_tag'
 gem 'carrierwave'
 gem 'mini_magick'
 gem "airbrake"
+gem 'mimemagic'
+gem 'ptools'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

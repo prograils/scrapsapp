@@ -140,6 +140,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
+    mimemagic (0.1.9)
     mini_magick (3.4)
       subexec (~> 0.2.1)
     multi_json (1.3.6)
@@ -185,6 +186,7 @@ GEM
       activerecord (~> 3.0)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
+    ptools (1.2.2)
     pygments.rb (0.3.1)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
@@ -305,6 +307,7 @@ DEPENDENCIES
   inherited_resources
   jquery-rails
   kaminari
+  mimemagic
   mini_magick
   nested_form
   nokogiri
@@ -312,6 +315,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-twitter
   pg (>= 0.14.1)
+  ptools
   pygments.rb
   rails (= 3.2.8)
   ransack

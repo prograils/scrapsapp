@@ -1,3 +1,4 @@
+require 'tempfile'
 class SingleFile < ActiveRecord::Base
 
   ## ASSOCIATIONS
@@ -33,6 +34,20 @@ class SingleFile < ActiveRecord::Base
             self.lexer = lx.aliases.first
             self.lexer_type = 'pygments'
           end
+        end
+        logger.info "blank lexer?"
+        if self.lexer.blank?
+          logger.info "yeah, blank lexer!!"
+          #mime = MimeMagic.by_magic(self.content) || MimeMagic.by_path(self.file_name)
+          #logger.info "mime: #{mime}"
+          file = Tempfile.new('scrapsapp')
+          file.write self.content
+          file.close
+          unless File.binary?(file.path)
+            self.lexer = 'text'
+            self.lexer_type = 'pygments'
+          end
+          file.unlink
         end
       end
       true
