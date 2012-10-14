@@ -48,12 +48,24 @@
                           %ul.nav.nav-list
                             %li.nav-header Folders
                             %li.divider/
-                            %li= link_to 'Add scrap', [:new, org, :scrap], :class=>"p"
-                            %li= link_to 'All scraps', [org, :scraps], :class=>"p"
+                            %li
+                              = link_to [:new, org, :scrap], :class=>"p" do
+                                = draw_icon 'plus-sign'
+                                Add scrap
+                            %li
+                              = link_to [org, :scraps], :class=>"p" do
+                                = draw_icon 'list'
+                                All scraps
                             - unless org.user_id.present?
-                              %li= link_to 'Group overview', [org], :class=>"p"
+                              %li
+                                = link_to [org], :class=>"p" do
+                                  = draw_icon 'briefcase'
+                                  Group overview
                             - else
-                              %li= link_to 'Account overview', [org], :class=>"p"
+                              %li
+                                = link_to [org], :class=>"p" do
+                                  = draw_icon 'user'
+                                  Account overview
               - else
                 %ul.nav.nav-pills.nav-stacked
                   - if @organization and @organization.persisted?
