@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
     my_organizations = current_user.organizations.all.map(&:id) || []
     #starred_ids = current_user.stars.all.map(&:scrap_id) || []
     @q = current_user.starred_scraps.where('is_public=? or organization_id in (?)', true, my_organizations).search(params[:q])
-    @scraps = @q.result(:distinct=>true).page(params[:page])
+    @scraps = @q.result(:distinct=>true).ordered.page(params[:page])
   end
 
   def observed
@@ -28,12 +28,12 @@ class DashboardController < ApplicationController
     my_organizations = current_user.organizations.all.map(&:id) || []
     user_ids = current_user.observed_users.all.map(&:id) || []
     @q = Scrap.where('(is_public=? and (organization_id in (?) or user_id in (?))) or (organization_id in (?))', true, observed_ids, user_ids, my_organizations).search(params[:q])
-    @scraps = @q.result(:distinct=>true).page(params[:page])
+    @scraps = @q.result(:distinct=>true).ordered.page(params[:page])
   end
 
   def my
     @q = current_user.scraps.search(params[:q])
-    @scraps = @q.result(:distinct=>true).page(params[:page])
+    @scraps = @q.result(:distinct=>true).ordered.page(params[:page])
   end
 
   def delete_oauth
