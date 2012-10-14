@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014084149) do
+ActiveRecord::Schema.define(:version => 20121014121908) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -99,6 +99,16 @@ ActiveRecord::Schema.define(:version => 20121014084149) do
   end
 
   add_index "single_files", ["scrap_id"], :name => "index_single_files_on_scrap_id"
+
+  create_table "stars", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "scrap_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "stars", ["scrap_id"], :name => "index_stars_on_scrap_id"
+  add_index "stars", ["user_id"], :name => "index_stars_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

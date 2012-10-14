@@ -28,7 +28,7 @@
                     = link_to starred_path, :class=>"p" do
                       = draw_icon 'star'
                       Starred
-                      %span.badge 0
+                      %span.badge= current_user.stars.count(:id)
                   %li
                     = link_to observed_path, :class=>"p" do
                       = draw_icon 'eye-open'

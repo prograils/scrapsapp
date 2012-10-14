@@ -1,4 +1,9 @@
 %h2= @scrap.title
+- if current_user
+  - if current_user.starred_scraps.where('scraps.id=?', @scrap.id).exists?
+    = link_to 'unstar :(', [:unstar, @organization, @scrap]
+  - else
+    = link_to 'star!', [:star, @organization, @scrap]
 
 %p
   = simple_format @scrap.description

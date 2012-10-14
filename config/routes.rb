@@ -17,6 +17,10 @@ ScrapsApp::Application.routes.draw do
     end
     
     resources :scraps do 
+      member do
+        get :star
+        get :unstar
+      end
     
     end
   end

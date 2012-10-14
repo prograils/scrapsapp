@@ -1,8 +1,8 @@
 class ScrapsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:index, :show]
   before_filter :find_organization
-  before_filter :find_public_scrap, :only=>[:show]
-  before_filter :find_and_check_ownership, :except=>[:index, :show, :new, :create]
+  before_filter :find_public_scrap, :only=>[:show, :star, :unstar]
+  before_filter :find_and_check_ownership, :except=>[:index, :show, :new, :create, :star, :unstar]
   before_filter :check_organization_membership, :only=>[:new, :create]
 
 
@@ -31,6 +31,16 @@ class ScrapsController < ApplicationController
     create!
   end
   ## END inherited overwrites
+  
+  def star
+    s = current_user.stars.where(:scrap_id=>@scrap.id).first_or_create!
+    redirect_to :back
+  end
+
+  def unstar
+    current_user.stars.where(:scrap_id=>@scrap.id).destroy_all
+    redirect_to :back
+  end
 
   private
     def find_organization

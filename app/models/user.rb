@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :observed_organizations, :through=>:observers, :source=>:organization, :class_name=>"Organization"
   has_many :observed_users, :through=>:observers, :source=>:observed, :class_name=>"User"
   has_many :oauth_credentials, :dependent=>:destroy
+  has_many :stars, :dependent=>:destroy
+  has_many :starred_scraps, :through=>:stars, :source=>:scrap, :class_name=>"Scrap"
 
   ## DEVISE
   devise :database_authenticatable, :registerable, :confirmable,

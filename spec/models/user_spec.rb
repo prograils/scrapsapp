@@ -8,6 +8,8 @@ describe User do
   it { should have_many(:managed_organizations) }
   it { should have_many(:scraps) }
   it { should have_many(:observed_organizations) }
+  it { should have_many(:starts) }
+  it { should have_many(:stared_scraps) }
 
   context :uniquness do
     before(:each) do

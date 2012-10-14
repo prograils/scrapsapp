@@ -7,6 +7,8 @@ class Scrap < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
   has_many :single_files, :dependent=>:destroy
+  has_many :stars, :dependent=>:destroy
+  has_many :starring_users, :through=>:stars, :source=>:user, :class_name=>"User"
 
   ## VALIDATIONS
   validates :title, 

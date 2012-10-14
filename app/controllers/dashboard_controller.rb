@@ -6,6 +6,10 @@ class DashboardController < ApplicationController
   end
 
   def starred
+    my_organizations = current_user.organizations.all.map(&:id) || []
+    #starred_ids = current_user.stars.all.map(&:scrap_id) || []
+    @q = current_user.starred_scraps.where('is_public=? or organization_id in (?)', true, my_organizations).search(params[:q])
+    @scraps = @q.result(:distinct=>true).page(params[:page])
   end
 
   def observed
