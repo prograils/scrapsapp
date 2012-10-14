@@ -10,8 +10,9 @@ class DashboardController < ApplicationController
 
   def observed
     observed_ids = current_user.observed_organizations.all.map(&:id) || []
+    my_organizations = current_user.organizations.all.map(&:id) || []
     user_ids = current_user.observed_users.all.map(&:id) || []
-    @q = Scrap.public.where('organization_id in (?) or user_id in (?)', observed_ids, user_ids).search(params[:q])
+    @q = Scrap.where('(is_public=? and (organization_id in (?) or user_id in (?))) or (organization_id in (?))', observed_ids, user_ids, my_organizations).search(params[:q])
     @scraps = @q.result(:distinct=>true).page(params[:page])
   end
 

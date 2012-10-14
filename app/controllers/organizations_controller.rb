@@ -54,7 +54,7 @@ class OrganizationsController < ApplicationController
   end
 
   def stop_observing
-    @organization = Organization.public.find(params[:id])
+    @organization = Organization.find(params[:id])
     current_user.observers.where(:organization_id=>@organization.id).destroy_all
     redirect_to :back
   end

@@ -63,13 +63,13 @@ class User < ActiveRecord::Base
     logger.info auth
     create! do |user|
       user.bypass_validation_on_oauth = true
+      user.oauth_one_time_token = Devise.friendly_token[0,20]
       case provider
         when "github" then
           user.email = auth["info"]["email"]
           user.username = auth["info"]["nickname"]
           user = fill_from_github(auth,  user)
         when "twitter" then
-          user.oauth_one_time_token = Devise.friendly_token[0,20]
           user.username = auth["info"]["nickname"] || user.email
           user = fill_from_twitter(auth, user)
         when "facebook" then

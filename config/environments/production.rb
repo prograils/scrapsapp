@@ -75,8 +75,8 @@ ScrapsApp::Application.configure do
     domain: "scrapsapp.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: 'robot@scrapsapp.com',
+    password: 'vVp5YjmFZrZx1YmC'
   }
 
 

@@ -12,7 +12,7 @@ elsif Rails.env.development?
   facebook[:client], facebook[:secret] = '473606132684588', '9b2720c83dfe772944c86990a6dd067a'
 end
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, github[:client], github[:secret], :scope=>'user'
+  provider :github, github[:client], github[:secret]
   provider :twitter, twitter[:client], twitter[:secret]
   provider :facebook, facebook[:client], facebook[:secret],
     :scope => 'email,user_website'
