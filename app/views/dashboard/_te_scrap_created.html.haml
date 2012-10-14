@@ -1,0 +1,10 @@
+%span.label.te_label{:class=>get_event_type_class(te.event_type)}
+  New scrap
+= link_to te.actor, te.actor
+created new scrap
+= link_to te.subject, [te.subject.organization, te.subject]
+- if te.secondary_subject_id != te.actor_id
+  in organization
+  = link_to te.secondary_subject, te.secondary_subject
+%span.pull-right
+  = l te.created_at

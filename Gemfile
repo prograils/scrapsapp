@@ -28,6 +28,7 @@ gem 'mini_magick'
 gem "airbrake"
 gem 'mimemagic'
 gem 'ptools'
+gem 'timeline_fu', :git=>'git@github.com:mlitwiniuk/timeline_fu.git'#, :branch=>'privacy_level'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

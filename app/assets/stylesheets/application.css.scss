@@ -37,3 +37,9 @@
 }
 .highlight pre { white-space: pre !important; overflow: auto; }
 .table td.center_text{ padding-left: 30px;}
+.timeline_event{
+  padding: 3px 0;
+  .te_label{
+    margin: 0 10px 0 0;
+  }
+}

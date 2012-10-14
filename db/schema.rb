@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014121908) do
+ActiveRecord::Schema.define(:version => 20121014135554) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -109,6 +109,27 @@ ActiveRecord::Schema.define(:version => 20121014121908) do
 
   add_index "stars", ["scrap_id"], :name => "index_stars_on_scrap_id"
   add_index "stars", ["user_id"], :name => "index_stars_on_user_id"
+
+  create_table "timeline_events", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "event_type"
+    t.string   "subject_type"
+    t.string   "actor_type"
+    t.string   "secondary_subject_type"
+    t.string   "extra_scope_type"
+    t.integer  "subject_id"
+    t.integer  "actor_id"
+    t.integer  "secondary_subject_id"
+    t.integer  "extra_scope_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "timeline_events", ["account_id"], :name => "index_timeline_events_on_account_id"
+  add_index "timeline_events", ["actor_id", "actor_type"], :name => "index_timeline_events_on_actor_id_and_actor_type"
+  add_index "timeline_events", ["extra_scope_id", "extra_scope_type"], :name => "scoped_timeline_events"
+  add_index "timeline_events", ["secondary_subject_id", "secondary_subject_type"], :name => "secondary_subject_timeline_events"
+  add_index "timeline_events", ["subject_id", "subject_type"], :name => "index_timeline_events_on_subject_id_and_subject_type"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

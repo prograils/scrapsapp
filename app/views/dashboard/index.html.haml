@@ -1,1 +1,8 @@
-all whats new will come here
+- unless @timeline_events.empty?
+  %ul.unstyled
+    - @timeline_events.each do |te|
+      %li.timeline_event
+        = render :partial=>"te_#{te.event_type}", :locals=>{:te=>te}
+- else
+  %p
+    No actions to display yet

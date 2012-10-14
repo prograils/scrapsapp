@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:mlitwiniuk/timeline_fu.git
+  revision: 7fcbddad64877b388b3e9212dc10cc93e7fff691
+  specs:
+    timeline_fu (0.4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -327,4 +333,5 @@ DEPENDENCIES
   shoulda-matchers
   simple_form (>= 2.0.3)
   spork-rails
+  timeline_fu!
   uglifier (>= 1.0.3)

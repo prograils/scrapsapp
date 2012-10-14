@@ -32,4 +32,15 @@ module ApplicationHelper
   def ejs(val)
     escape_javascript val
   end
+
+  def get_event_type_class(event_type)
+    case event_type
+    when 'scrap_created'
+      'label-success'
+    when 'started_observing'
+      'label-info'
+    when 'starred'
+      'label-warning'
+    end
+  end
 end

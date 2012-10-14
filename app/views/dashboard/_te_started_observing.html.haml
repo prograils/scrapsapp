@@ -1,0 +1,7 @@
+%span.label.te_label{:class=>get_event_type_class(te.event_type)}
+  Observes
+= link_to te.actor, te.actor
+started observing
+= link_to te.secondary_subject, te.secondary_subject
+%span.pull-right
+  = l te.created_at

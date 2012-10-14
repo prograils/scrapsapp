@@ -5,9 +5,18 @@ class Observer < ActiveRecord::Base
   belongs_to :organization
   belongs_to :membership
   belongs_to :observed, :class_name=>"User"
+  has_many :timeline_events, :as=>:extra_scope, :dependent=>:destroy
   
   ## ACCESSIBLE
   attr_accessible
+
+  ## TIMELINE FU
+  fires :started_observing,  :on => :create,
+                           :actor => Proc.new{|t| t.user.private_organization },
+                           :subject => Proc.new{|t| nil },
+                           :secondary_subject=>Proc.new{|t| t.organization },
+                           :extra_scope=>Proc.new{|t| t }
+
 
   def self.observe_organization(usr, org)
     o = Observer.new
