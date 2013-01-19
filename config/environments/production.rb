@@ -64,20 +64,11 @@ ScrapsApp::Application.configure do
   config.action_mailer.default_url_options = { :host => 'scrapsapp.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "scrapsapp.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: 'robot@scrapsapp.com',
-    password: 'vVp5YjmFZrZx1YmC'
-  }
 
 
   config.action_controller.asset_host = 'http://scrapsapp.com'
