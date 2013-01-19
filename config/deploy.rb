@@ -18,7 +18,7 @@ load 'deploy/assets'
 
 
 set :application, "deploy"
-set :repository,  "git@github.com:railsrumble/r12-team-31.git"
+set :repository,  "git@github.com:prograils/scrapsapp.git"
 set :user, "deploy"
 set :use_sudo, false
 
