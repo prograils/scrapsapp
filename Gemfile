@@ -38,7 +38,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-process'
-  gem 'capistrano', :require=>false
+  gem 'capistrano', '< 3.0', :require=>false
   gem 'hipchat', :require=>false
 end
 
