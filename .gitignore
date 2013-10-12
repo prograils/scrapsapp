@@ -81,3 +81,4 @@ pickle-email-*.html
 .powrc
 .rvmrc
 .env
+.ruby-*
