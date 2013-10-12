@@ -12,8 +12,8 @@ elsif Rails.env.development?
   facebook[:client], facebook[:secret] = '473606132684588', '9b2720c83dfe772944c86990a6dd067a'
 end
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, github[:client], github[:secret]
-  provider :twitter, twitter[:client], twitter[:secret]
-  provider :facebook, facebook[:client], facebook[:secret],
+  provider :github, ENV['SCRAPSAPP_GITHUB_OAUTH_CLIENT'], ENV['SCRAPSAPP_GITHUB_OAUTH_SECRET']
+  provider :twitter, ENV['SCRAPSAPP_TWITTER_OAUTH_CLIENT'], ENV['SCRAPSAPP_TWITTER_OAUTH_SECRET']
+  provider :facebook, ENV['SCRAPSAPP_FACEBOOK_OAUTH_CLIENT'], ENV['SCRAPSAPP_FACEBOOK_OAUTH_SECRET'],
     :scope => 'email,user_website'
 end

@@ -1,8 +1,7 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
   factory :folder do
-    name "MyString"
-    organization nil
+    sequence(:name){|n| "folder #{n}"}
+    association(:organization)
   end
 end

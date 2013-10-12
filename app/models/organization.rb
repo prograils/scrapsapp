@@ -15,7 +15,7 @@ class Organization < ActiveRecord::Base
   has_many :observers, :dependent=>:destroy
   has_many :observing_users, :through=>:observers, :source=>:user, :class_name=>"User"
   has_many :timeline_events, :as=>:secondary_subject, :dependent=>:destroy
-  has_many :actored_timeline_events, :as=>:actor, :dependent=>:destroy
+  has_many :actored_timeline_events, :as=>:actor, :dependent=>:destroy, class_name: "TimelineEvent"
   has_many :folders, :dependent=>:destroy
 
 
@@ -24,7 +24,7 @@ class Organization < ActiveRecord::Base
             :uniqueness=>{:case_sensitive=>false},
             :presence=>true
   validate  :check_name_uniqueness
-  
+
   ## FRIENDLY_ID
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -41,13 +41,13 @@ class Organization < ActiveRecord::Base
   end
 
   def make_admin(u)
-    membership = self.memberships.where(:user_id=>u.id).first_or_initialize 
+    membership = self.memberships.where(:user_id=>u.id).first_or_initialize
     membership.membership_type = 'admin'
     membership.save!
   end
 
   def make_user(u)
-    membership = self.memberships.where(:user_id=>u.id).first_or_initialize 
+    membership = self.memberships.where(:user_id=>u.id).first_or_initialize
     membership.membership_type = 'user'
     membership.save!
   end

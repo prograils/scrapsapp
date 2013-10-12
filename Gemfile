@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.14'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -29,6 +29,7 @@ gem "airbrake"
 gem 'mimemagic'
 gem 'ptools'
 gem 'timeline_fu', :git=>'git@github.com:mlitwiniuk/timeline_fu.git'#, :branch=>'privacy_level'
+gem 'dotenv-rails'
 
 group :development do
   gem "haml-rails", ">= 0.3.5", :group => :development

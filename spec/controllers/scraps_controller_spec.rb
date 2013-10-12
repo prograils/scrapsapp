@@ -42,7 +42,7 @@ describe ScrapsController do
 
   describe "GET index" do
     it "assigns all scraps as @scraps" do
-      scrap = Scrap.create! valid_attributes
+      scrap = Scrap.new valid_attributes
       scrap.user = @user
       scrap.organization = @organization
       scrap.save
@@ -53,7 +53,7 @@ describe ScrapsController do
 
   describe "GET show" do
     it "assigns the requested scrap as @scrap" do
-      scrap = Scrap.create! valid_attributes
+      scrap = Scrap.new valid_attributes
       scrap.user = @user
       scrap.organization = @organization
       scrap.save
@@ -71,7 +71,7 @@ describe ScrapsController do
 
   describe "GET edit" do
     it "assigns the requested scrap as @scrap" do
-      scrap = Scrap.create! valid_attributes
+      scrap = Scrap.new valid_attributes
       scrap.user = @user
       scrap.organization = @organization
       scrap.save
@@ -114,10 +114,10 @@ describe ScrapsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested scrap" do
-        scrap = Scrap.create! valid_attributes
-      scrap.user = @user
-      scrap.organization = @organization
-      scrap.save
+        scrap = Scrap.new valid_attributes
+        scrap.user = @user
+        scrap.organization = @organization
+        scrap.save
         # Assuming there are no other scraps in the database, this
         # specifies that the Scrap created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -127,19 +127,19 @@ describe ScrapsController do
       end
 
       it "assigns the requested scrap as @scrap" do
-        scrap = Scrap.create! valid_attributes
-      scrap.user = @user
-      scrap.organization = @organization
-      scrap.save
+        scrap = Scrap.new valid_attributes
+        scrap.user = @user
+        scrap.organization = @organization
+        scrap.save
         put :update, {:id => scrap.to_param, :scrap => valid_attributes.merge!({:title=>scrap.title}), :organization_id=>@organization.id}
         assigns(:scrap).should eq(scrap)
       end
 
       it "redirects to the scrap" do
-        scrap = Scrap.create! valid_attributes
-      scrap.user = @user
-      scrap.organization = @organization
-      scrap.save
+        scrap = Scrap.new valid_attributes
+        scrap.user = @user
+        scrap.organization = @organization
+        scrap.save
         put :update, {:id => scrap.to_param, :scrap => valid_attributes.merge!({:title=>scrap.title}), :organization_id=>@organization.id}
         response.should redirect_to([@organization, scrap])
       end
@@ -147,10 +147,10 @@ describe ScrapsController do
 
     describe "with invalid params" do
       it "assigns the scrap as @scrap" do
-        scrap = Scrap.create! valid_attributes
-      scrap.user = @user
-      scrap.organization = @organization
-      scrap.save
+        scrap = Scrap.new valid_attributes
+        scrap.user = @user
+        scrap.organization = @organization
+        scrap.save
         # Trigger the behavior that occurs when invalid params are submitted
         Scrap.any_instance.stub(:save).and_return(false)
         put :update, {:id => scrap.to_param, :scrap => {:title=>""}, :organization_id=>@organization.id}
@@ -162,7 +162,7 @@ describe ScrapsController do
 
   describe "DELETE destroy" do
     it "destroys the requested scrap" do
-      scrap = Scrap.create! valid_attributes
+      scrap = Scrap.new valid_attributes
       scrap.user = @user
       scrap.organization = @organization
       scrap.save
@@ -172,7 +172,7 @@ describe ScrapsController do
     end
 
     it "redirects to the scraps list" do
-      scrap = Scrap.create! valid_attributes
+      scrap = Scrap.new valid_attributes
       scrap.user = @user
       scrap.organization = @organization
       scrap.save

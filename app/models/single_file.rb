@@ -8,7 +8,7 @@ class SingleFile < ActiveRecord::Base
   belongs_to :scrap
 
   ## VALIDATED
-  validates :name, 
+  validates :name,
             :presence=>true
   #validates :lexer,
             #:inclusion=>{:in=>[""]|Pygments::Lexer.all.select{|y| !(y.filenames.empty?)}.map{|x|[x.name]}}
@@ -38,20 +38,19 @@ class SingleFile < ActiveRecord::Base
             self.lexer_type = 'pygments'
           end
         end
-        logger.info "blank lexer?"
-        if self.lexer.blank?
-          logger.info "yeah, blank lexer!!"
+        #if self.lexer.blank?
+          #logger.info "yeah, blank lexer!!"
           #mime = MimeMagic.by_magic(self.content) || MimeMagic.by_path(self.file_name)
           #logger.info "mime: #{mime}"
-          file = Tempfile.new('scrapsapp')
-          file.write self.content
-          file.close
-          unless File.binary?(file.path)
-            self.lexer = 'text'
-            self.lexer_type = 'pygments'
-          end
-          file.unlink
-        end
+          #file = Tempfile.new('scrapsapp')
+          #file.write self.content
+          #file.close
+          #unless File.binary?(file.path)
+            #self.lexer = 'text'
+            #self.lexer_type = 'pygments'
+          #end
+          #file.unlink
+        #end
       end
       true
     end

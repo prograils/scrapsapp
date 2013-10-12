@@ -15,7 +15,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     show!
   end
-  
+
   def create
     @organization = Organization.new params[:organization]
     @membership = current_user.memberships.build do |m|
@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
     @organization.memberships << @membership
     create!
   end
-  
+
   def update
     update! do |s,f|
       f.html do

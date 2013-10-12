@@ -43,6 +43,6 @@ describe SingleFile do
       sf.directory.should == "config/initializer"
     end
 
-    
+
   end
 end
