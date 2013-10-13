@@ -1,6 +1,6 @@
 class Membership < ActiveRecord::Base
   MEMBERSHIP_TYPES = %w( user admin )
-  
+
   ## ASSOCIATIONS
   belongs_to :user
   belongs_to :organization, :counter_cache=>true
@@ -15,7 +15,7 @@ class Membership < ActiveRecord::Base
 
 
   ## ACCESSIBLE
-  attr_accessible :membership_type, :user_id
+  # attr_accessible :membership_type, :user_id
 
   ## BEFORE & AFTER
   after_create :create_observer

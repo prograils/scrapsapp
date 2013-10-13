@@ -1,8 +1,8 @@
 class Scrap < ActiveRecord::Base
 
   ## SCOPES
-  scope :public, where("#{Scrap.quoted_table_name}.is_public=?", true)
-  scope :ordered, order("#{Scrap.quoted_table_name}.created_at DESC")
+  scope :public, ->{ where("#{Scrap.quoted_table_name}.is_public=?", true) }
+  scope :ordered, ->{ order("#{Scrap.quoted_table_name}.created_at DESC") }
 
   ## ASSOCIATIONS
   belongs_to :user
@@ -14,7 +14,7 @@ class Scrap < ActiveRecord::Base
   has_many :timeline_events, :as=>:subject, :dependent=>:destroy
 
   ## VALIDATIONS
-  validates :title, 
+  validates :title,
             :presence=>true
 
   ## FRIENDLY_ID
@@ -23,9 +23,6 @@ class Scrap < ActiveRecord::Base
 
   ## ANAF
   accepts_nested_attributes_for :single_files
-  
-  ## ACCESSIBLE
-  attr_accessible :description, :is_public, :title, :single_files_attributes, :folder_id
 
   ## TIMELINE FU
   fires :scrap_created,  :on => :create,

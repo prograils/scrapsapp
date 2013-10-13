@@ -3,14 +3,15 @@ class User < ActiveRecord::Base
   FORBIDDEN_NAMES = %w( www mail admin public edit destroy new create update starred )
 
   ## SCOPES
-  scope :ordered, order('username ASC')
+  scope :ordered, ->{ order('username ASC') }
 
   ## ASSOCIATIONS
   has_one :private_organization, :class_name=>"Organization", :dependent=>:destroy
   has_many :memberships, :dependent=>:destroy
   has_many :organizations, :through=>:memberships, :source=>:organization
-  has_many :managed_organizations, :through=>:memberships, :source=>:organization, 
-            :class_name=>"Organization", :conditions=>['membership_type=?', 'admin']
+  has_many :managed_organizations, ->{ where('membership_type=?', 'admin') },
+    :through=>:memberships, :source=>:organization, :class_name=>"Organization"
+
   has_many :scraps, :dependent=>:destroy
   has_many :observers, :dependent=>:destroy
   has_many :observed_organizations, :through=>:observers, :source=>:organization, :class_name=>"Organization"
@@ -28,15 +29,15 @@ class User < ActiveRecord::Base
             :uniqueness=>{:case_sensitive=>false},
             :format=>{:with=>/\A[a-z\d_\-\.\@]+\Z/i},
             :presence=>true,
-            :if=>proc{|u| not u.bypass_validation_on_oauth}
+            :if=>proc{|u| not u.bypass_validation_on_oauth }
   validate  :check_username_uniqueness_with_error
-  
+
   ## CARRIERWAVE
   mount_uploader :photo, PhotoUploader
 
   ## ACCESSIBLE
-  attr_accessible :email, :password, :password_confirmation, :remember_me, 
-                  :username, :first_name, :last_name
+  #attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  #:username, :first_name, :last_name
 
   ## BEFORE & AFTER
   after_create :create_private_organization
@@ -63,9 +64,9 @@ class User < ActiveRecord::Base
   end
 
   def self.create_from_omniauth(provider, auth)
-    token = auth["credentials"]["token"]
-    secret = auth["credentials"]["secret"]
-    d = Date.today
+    #token = auth["credentials"]["token"]
+    #secret = auth["credentials"]["secret"]
+    #d = Date.today
     logger.info auth
     create! do |user|
       user.bypass_validation_on_oauth = true
@@ -109,8 +110,8 @@ class User < ActiveRecord::Base
   end
 
   def fill_from_omniauth(provider, auth)
-    token = auth["credentials"]["token"]
-    secret = auth["credentials"]["secret"]
+    #token = auth["credentials"]["token"]
+    #secret = auth["credentials"]["secret"]
     case provider
       when "github" then
         User.fill_from_github(auth, self, true)
@@ -122,7 +123,7 @@ class User < ActiveRecord::Base
   end
 
   def self.fill_from_twitter(auth, user, do_save=false)
-    logger.info auth['extra']['raw_info']
+    #logger.info auth['extra']['raw_info']
     user.bypass_validation_on_oauth = true
     oac = user.oauth_credentials.where(:provider=>"twitter").first_or_initialize
     oac.uid = auth['uid']
@@ -140,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def self.fill_from_facebook(auth, user, do_save=false)
-    logger.info auth
+    #logger.info auth
     user.bypass_validation_on_oauth = true
     oac = user.oauth_credentials.where(:provider=>"facebook").first_or_initialize
     oac.uid = auth['uid']
@@ -179,11 +180,14 @@ class User < ActiveRecord::Base
     def check_username_uniqueness(check_user=false)
       ex = Organization
       ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.public
-      ex = ex.where('name ilike ?', self.username).exists?
+      logger.info ex.to_sql
+      puts ex.to_sql
+      ex = ex.where('name ilike ?', self.username)
+      puts ex.to_sql
       if check_user
         check_user = User.where('username ilike ?', self.username).exists?
       end
-      ex || User::FORBIDDEN_NAMES.member?((self.username||"").downcase.strip) || check_user
+      User::FORBIDDEN_NAMES.member?((self.username||"").downcase.strip) || check_user || ex.exists?
     end
 
   private
@@ -204,10 +208,10 @@ class User < ActiveRecord::Base
         po.save
       end
     end
-    
+
     def check_username_uniqueness_with_error
       ex = check_username_uniqueness
-      errors.add(:username, 'is taken') if ex 
+      errors.add(:username, 'is taken') if ex
     end
-  
+
 end

@@ -68,4 +68,9 @@ class OrganizationsController < ApplicationController
     def find_managed_organization
       @organization = current_user.managed_organizations.public.find(params[:id])
     end
+
+    def build_resource_params
+      [params.require(:organization).permit(:name, :permissions,
+                              membership_attributes: [:membership_type, :user_id])]
+    end
 end

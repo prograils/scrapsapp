@@ -34,8 +34,8 @@ describe ScrapsController do
     {}
   end
 
-  login_user
   before(:each) do
+    login_user
     @organization = FactoryGirl.create(:organization)
     @organization.make_user(@user)
   end

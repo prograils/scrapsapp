@@ -2,7 +2,7 @@ require 'tempfile'
 class SingleFile < ActiveRecord::Base
 
   ## SCOPES
-  scope :ordered, order("#{SingleFile.quoted_table_name}.id ASC")
+  scope :ordered, ->{ order("#{SingleFile.quoted_table_name}.id ASC") }
 
   ## ASSOCIATIONS
   belongs_to :scrap
@@ -12,8 +12,6 @@ class SingleFile < ActiveRecord::Base
             :presence=>true
   #validates :lexer,
             #:inclusion=>{:in=>[""]|Pygments::Lexer.all.select{|y| !(y.filenames.empty?)}.map{|x|[x.name]}}
-  ## ACCESSIBLE
-  attr_accessible :content, :name, :lexer
 
   ## BEFORE & AFTER
   before_save :split_name

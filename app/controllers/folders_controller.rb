@@ -16,11 +16,15 @@ class FoldersController < ApplicationController
   def update
     update! { organization_folders_path(@organization) }
   end
-  
+
   private
 
     def require_organization_member
       @organization = current_user.organizations.find(params[:organization_id])
+    end
+
+    def build_resource_params
+      [params.require(:folder).permit(:name)]
     end
 
 end

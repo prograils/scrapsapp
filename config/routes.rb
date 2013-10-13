@@ -10,21 +10,21 @@ ScrapsApp::Application.routes.draw do
     collection do
       get :public
     end
-    member do 
+    member do
       get :members
       get :observe
       get :stop_observing
     end
-    
+
     resources :folders, :path=>"f" do
       resources :scraps, :path=>"s", :only=>[:show, :index]
     end
-    resources :scraps, :path=>"s" do 
+    resources :scraps, :path=>"s" do
       member do
         get :star
         get :unstar
       end
-    
+
     end
   end
 
@@ -32,10 +32,10 @@ ScrapsApp::Application.routes.draw do
                                 :registrations  => "users/registrations",
                                 :sessions  => "users/sessions"
                               }
-  match 'auth/:provider/callback', to: 'omniauth_callbacks#callback'
-  match 'auth/failure', to: redirect('/')
+  get 'auth/:provider/callback', to: 'omniauth_callbacks#callback'
+  get 'auth/failure', to: redirect('/')
   authenticated :user do
-    root :to => 'dashboard#index'
+    root :to => 'dashboard#index', as: :user_root
   end
   root :to => "home#index"
 end

@@ -6,9 +6,6 @@ class Observer < ActiveRecord::Base
   belongs_to :membership
   belongs_to :observed, :class_name=>"User"
   has_many :timeline_events, :as=>:extra_scope, :dependent=>:destroy
-  
-  ## ACCESSIBLE
-  attr_accessible
 
   ## TIMELINE FU
   fires :started_observing,  :on => :create,

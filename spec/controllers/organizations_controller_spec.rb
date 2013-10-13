@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe OrganizationsController do
+  render_views
 
   # This should return the minimal set of attributes required to create a valid
   # Organization. As you add validations to Organization, be sure to
@@ -9,16 +10,10 @@ describe OrganizationsController do
     FactoryGirl.attributes_for(:organization)
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # OrganizationsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+  before(:each) do
+    login_user
   end
 
-  login_user
-
-  render_views
 
   describe "GET index" do
     it "assigns all possible organizations as @organizations" do
@@ -33,7 +28,7 @@ describe OrganizationsController do
   describe "GET show" do
     it "assigns the requested organization as @organization" do
       organization = Organization.create! valid_attributes
-      get :show, {:id => organization.to_param}, valid_session
+      get :show, {:id => organization.to_param}
       assigns(:organization).should eq(organization)
     end
   end

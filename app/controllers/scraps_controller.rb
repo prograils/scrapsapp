@@ -36,9 +36,9 @@ class ScrapsController < ApplicationController
     create!
   end
   ## END inherited overwrites
-  
+
   def star
-    s = current_user.stars.where(:scrap_id=>@scrap.id).first_or_create!
+    current_user.stars.where(:scrap_id=>@scrap.id).first_or_create!
     redirect_to :back
   end
 
@@ -68,9 +68,14 @@ class ScrapsController < ApplicationController
     def check_organization_membership
       redirect_to(root_url) unless @organization.users.member?(current_user)
     end
-    
+
     def find_folder
       @folder = @organization.folders.find(params[:folder_id]) unless params[:folder_id].blank?
     end
-  
+
+    def build_resource_params
+      [params.require(:scrap).permit(:title, :is_public, :descripton, :folder_id,
+                                    single_file_attributes: [:content, :name, :lexer] )]
+    end
+
 end

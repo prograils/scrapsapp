@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe DashboardController do
 
-  login_user
+  before do
+    login_user
+  end
+
   describe "GET 'index'" do
     it "returns http success" do
       get 'index'

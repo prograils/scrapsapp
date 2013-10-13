@@ -2,15 +2,15 @@ class Organization < ActiveRecord::Base
   attr_accessor :permissions, :creating_user
 
   ## SCOPES
-  scope :public, where("#{Organization.quoted_table_name}.user_id is null")
+  scope :public, ->{ where(user_id: nil) }
 
 
   ## ASSOCIATIONS
   belongs_to :user
   has_many :memberships, :dependent=>:destroy
   has_many :users, :through=>:memberships, :source=>:user
-  has_many :admins, :through=>:memberships, :source=>:user, :class_name=>"User",
-            :conditions=>['memberships.membership_type=?', 'admin']
+  has_many :admins, ->{ where('memberships.membership_type=?', 'admin') },
+              :through=>:memberships, :source=>:user, :class_name=>"User"
   has_many :scraps, :dependent=>:destroy
   has_many :observers, :dependent=>:destroy
   has_many :observing_users, :through=>:observers, :source=>:user, :class_name=>"User"
@@ -34,7 +34,7 @@ class Organization < ActiveRecord::Base
 
 
   ## ACCESSIBLE
-  attr_accessible :name, :memberships_attributes, :permissions
+  #attr_accessible :name, :memberships_attributes, :permissions
 
   def to_s
     self.name

@@ -10,15 +10,8 @@ describe FoldersController do
     FactoryGirl.attributes_for(:folder, organization: user.private_organization)
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # FoldersController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
-
-  login_user
   before(:each) do
+    login_user
     @organization = FactoryGirl.create(:organization)
     @organization.make_user(@user)
   end
