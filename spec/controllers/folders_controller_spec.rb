@@ -12,6 +12,7 @@ describe FoldersController do
 
   before(:each) do
     login_user
+    @user = User.first
     @organization = FactoryGirl.create(:organization)
     @organization.make_user(@user)
   end
@@ -28,7 +29,7 @@ describe FoldersController do
 
   describe "GET show" do
     it "assigns the requested folder as @folder" do
-      folder = Folder.new valid_attributes
+      folder = Folder.new valid_attributes(@user)
       folder.organization = @organization
       folder.save
       get :show, {organization_id: @organization.id, :id => folder.id}
@@ -45,7 +46,7 @@ describe FoldersController do
 
   describe "GET edit" do
     it "assigns the requested folder as @folder" do
-      folder = Folder.new valid_attributes
+      folder = Folder.new valid_attributes(@user)
       folder.organization = @organization
       folder.save
       get :edit, {organization_id: @organization.id, :id => folder.id}
@@ -86,7 +87,7 @@ describe FoldersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested folder" do
-        folder = Folder.new valid_attributes
+        folder = Folder.new valid_attributes(@user)
         folder.organization = @organization
         folder.save
         # Assuming there are no other folders in the database, this
@@ -98,7 +99,7 @@ describe FoldersController do
       end
 
       it "assigns the requested folder as @folder" do
-        folder = Folder.new valid_attributes
+        folder = Folder.new valid_attributes(@user)
         folder.organization = @organization
         folder.save
         put :update, {organization_id: @organization.id, :id => folder.id, :folder => valid_attributes}
@@ -116,7 +117,7 @@ describe FoldersController do
 
     describe "with invalid params" do
       it "assigns the folder as @folder" do
-        folder = Folder.new valid_attributes
+        folder = Folder.new valid_attributes(@user)
         folder.organization = @organization
         folder.save
         # Trigger the behavior that occurs when invalid params are submitted
@@ -129,7 +130,7 @@ describe FoldersController do
 
   describe "DELETE destroy" do
     it "destroys the requested folder" do
-      folder = Folder.new valid_attributes
+      folder = Folder.new valid_attributes(@user)
       folder.organization = @organization
       folder.save
       expect {
@@ -138,7 +139,7 @@ describe FoldersController do
     end
 
     it "redirects to the folders list" do
-      folder = Folder.new valid_attributes
+      folder = Folder.new valid_attributes(@user)
       folder.organization = @organization
       folder.save
       delete :destroy, {organization_id: @organization.id, :id => folder.id}

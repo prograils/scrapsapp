@@ -12,6 +12,7 @@ describe OrganizationsController do
 
   before(:each) do
     login_user
+    @user = User.first
   end
 
 
