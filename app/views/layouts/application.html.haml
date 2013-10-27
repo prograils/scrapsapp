@@ -11,92 +11,20 @@
     = yield(:head)
     = render :partial=>"/layouts/ga"
   %body{:class=>params[:controller], :'data-organization'=>@organization.present? ? @organization.slug : ''}
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
+    = render '/layouts/navigation'
     #main{:role => "main", :class=>params[:action]}
       .container
+        .masthead
         - unless @skip_left_column
           .row
-            .span3
-              - if current_user
-                %ul.nav.nav-pills.nav-stacked
-                  %li
-                    = link_to root_path, :class=>"p" do
-                      = draw_icon 'inbox'
-                      Dashboard
-                  %li
-                    = link_to starred_path, :class=>"p" do
-                      = draw_icon 'star'
-                      Starred
-                      %span.badge= current_user.stars.count(:id)
-                  %li
-                    = link_to observed_path, :class=>"p" do
-                      = draw_icon 'eye-open'
-                      Observed
-                  %li
-                    = link_to my_path, :class=>"p" do
-                      = draw_icon 'user'
-                      My scraps
-                #nav_cordion.accordion
-                  - @menu_organizations.each_with_index do |org, idx|
-                    .accordion-group
-                      .accordion-heading
-                        %a.accordion-toggle{:'data-toggle'=>'collapse', :'data-parent'=>'#nav_cordion', :href=>"#collapse_#{org.slug}"}
-                          %strong= org.name
-                      .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
-                        .sidebar-nav
-                          %ul.nav.nav-list
-                            %li.nav-header
-                              Folders
-                            - unless org.folders.empty?
-                              %ul
-                                - org.folders.ordered.each do |f|
-                                  %li= link_to f.name, [org, f, :scraps], :class=>"p"
-                            %li.divider/
-                            %li
-                              = link_to [:new, org, :scrap], :class=>"p" do
-                                = draw_icon 'plus-sign'
-                                Add scrap
-                            %li
-                              = link_to [org, :scraps], :class=>"p" do
-                                = draw_icon 'list'
-                                All scraps
-                            - unless org.user_id.present?
-                              %li
-                                = link_to [org], :class=>"p" do
-                                  = draw_icon 'briefcase'
-                                  Group overview
-                            - else
-                              %li
-                                = link_to [org], :class=>"p" do
-                                  = draw_icon 'user'
-                                  Account overview
-              - else
-                %ul.nav.nav-pills.nav-stacked
-                  - if @organization and @organization.persisted?
-                    %h4= @organization.name
-                    %li
-                      = link_to  [@organization, :scraps] do
-                        All scraps
-                        %span.badge= @organization.scraps.public.count
-                    %li= link_to 'Group overview', [@organization]
-                  - else
-                    %li
-                      = link_to [:public, :organizations] do
-                        All organizations
-                        %span.badge= Organization.public.count(:id)
-
-            .span9
-              = render 'layouts/messages'
+            .col-lg-3
+              = render partial: '/shared/left_column'
+            .col-lg-9
+              = render '/layouts/messages'
               #content_wrapper
                 = yield
         - else
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
-          %footer
-      / ! end of .container
-    / ! end of #main
+          = render '/layouts/messages'
+          = yield
+        .footer
+          &copy; 2013 prograils.com

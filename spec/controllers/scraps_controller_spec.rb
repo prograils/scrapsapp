@@ -76,6 +76,18 @@ describe ScrapsController do
         }.to change(Scrap, :count).by(1)
       end
 
+      it "creates a new Scrap with files" do
+        a = valid_attributes
+        a[:single_files_attributes] = {
+          id: nil,
+          name: 'test.txt',
+          content: 'readme content'
+        }
+        expect {
+          post :create, {:scrap => a, :organization_id=>@organization.id}
+        }.to change(SingleFile, :count).by(1)
+      end
+
       it "assigns a newly created scrap as @scrap" do
         post :create, {:scrap => valid_attributes, :organization_id=>@organization.id}
         assigns(:scrap).should be_a(Scrap)

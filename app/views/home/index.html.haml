@@ -1,7 +1,18 @@
-.hero-unit
-  %h1 ScrapsApp
-  %p Final place for all your code scraps
+.jumbotron
+  %h1.page-header Code snippets organized
+  %p.lead No more googling for same code snippet over and over again
   %p
-    = link_to new_user_registration_path, :class=>"btn btn-large btn-primary" do
-      %span.btn-label Sign up today!
+    = link_to new_user_registration_path, :class=>"btn btn-lg btn-success" do
+      Sign up today!
+.row
+  .col-lg-4
+    %h2 Store
+    %p Store your code scraps (snippets) in one place. Tag them, add many files, keep them for future. Every developer or SysOp has plenty of reusable code scraps, that he or she uses often, but always has trouble finding it. Not any more - keep them in one place, return to them whenever you'd like to.
+  .col-lg-4
+    %h2 Share
+    %p Create organizations within which you'll share common code snippets with your coworkers. No more sending them via IM or email, just give them a link and you're done
+  .col-lg-4
+    %h2 Open source
+    %p ScrapsApp is totally open sourced. If you want - just download source code and install app on your own server. Or better - if you miss some features, add them and share them with others.
+
 

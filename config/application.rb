@@ -67,5 +67,8 @@ module ScrapsApp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.eot *.woff *.ttf *.ico)
+    config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
   end
 end

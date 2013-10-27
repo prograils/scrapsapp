@@ -1,6 +1,6 @@
 = simple_nested_form_for([@organization, @scrap], :html=>{:class=>"form-horizontal"}) do |f|
   = f.error_notification
-  
+
   .form-inputs
     = f.input :title
     = f.input :is_public
@@ -14,4 +14,4 @@
     = f.link_to_add "add new file", :single_files
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'btn btn-success'

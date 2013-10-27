@@ -7,4 +7,4 @@ created new scrap
   in organization
   = link_to te.secondary_subject, te.secondary_subject
 %span.pull-right
-  = l te.created_at
+  = te.created_at.to_s(:db)

@@ -13,7 +13,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find(params[:id])
-    show!
+    #redirect_to [@organization, :scraps] if @organization.user.blank?
   end
 
   def create

@@ -1,49 +1,50 @@
-.span5
-  %h2
-    Edit account
-  = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class=>"form-horizontal" }) do |f|
-    = f.error_notification
-    .form-inputs
-      = f.input :username, :required=>true
-      = f.input :email, :required=>true
-      = f.input :password, :hint=>"leave blank if you don't want to change it", :required=>resource.oauth_one_time_token.present?
-      = f.input :password_confirmation, :required=>resource.oauth_one_time_token.present?
-      - if resource.oauth_one_time_token.blank?
-        = f.input :current_password, :hint=>"we need your current password to confirm your changes"
-    .form-actions
-      = f.submit "Update", :class=>"btn"
-  - if false
-    %h3 Cancel my account
-    %p
-      Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
-  = link_to "Back", :back
-.span2
-  %h2 Connect your account with
-  %br/
-  = link_to "/auth/github" do
-    = image_tag 'glyphicons/png/glyphicons_381_github.png'
-    Github
-  - if current_user.oauth_credentials.where(:provider=>"github").exists?
-    %small
-      = surround "(", ")" do
-        = link_to 'delete', delete_oauth_path('github')
-  %br/
-  %br/
-  = link_to "/auth/twitter" do
-    = image_tag 'glyphicons/png/glyphicons_391_twitter_t.png'
-    Twitter
-  - if current_user.oauth_credentials.where(:provider=>"twitter").exists?
-    %small
-      = surround "(", ")" do
-        = link_to 'delete', delete_oauth_path('twitter')
-  %br/
-  %br/
-  = link_to "/auth/facebook" do
-    = image_tag 'glyphicons/png/glyphicons_390_facebook.png'
-    Facebook
-  - if current_user.oauth_credentials.where(:provider=>"facebook").exists?
-    %small
-      = surround "(", ")" do
-        = link_to 'delete', delete_oauth_path('facebook')
-  %br/
+.row
+  .col-lg-6
+    %h2
+      Edit account
+    = simple_form_for(resource, wrapper: :bootstrap3_horizontal, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-horizontal" }) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :username, :required=>true
+        = f.input :email, :required=>true
+        = f.input :password, :hint=>"leave blank if you don't want to change it", :required=>resource.oauth_one_time_token.present?
+        = f.input :password_confirmation, :required=>resource.oauth_one_time_token.present?
+        - if resource.oauth_one_time_token.blank?
+          = f.input :current_password, :hint=>"we need your current password to confirm your changes"
+      .form-actions
+        = f.submit "Update", :class=>"btn"
+    - if false
+      %h3 Cancel my account
+      %p
+        Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+    = link_to "Back", :back
+  .col-lg-6
+    %h2 Connect your account with
+    %br/
+    = link_to "/auth/github" do
+      = image_tag 'glyphicons/png/glyphicons_381_github.png'
+      Github
+    - if current_user.oauth_credentials.where(:provider=>"github").exists?
+      %small
+        = surround "(", ")" do
+          = link_to 'delete', delete_oauth_path('github')
+    %br/
+    %br/
+    = link_to "/auth/twitter" do
+      = image_tag 'glyphicons/png/glyphicons_391_twitter_t.png'
+      Twitter
+    - if current_user.oauth_credentials.where(:provider=>"twitter").exists?
+      %small
+        = surround "(", ")" do
+          = link_to 'delete', delete_oauth_path('twitter')
+    %br/
+    %br/
+    = link_to "/auth/facebook" do
+      = image_tag 'glyphicons/png/glyphicons_390_facebook.png'
+      Facebook
+    - if current_user.oauth_credentials.where(:provider=>"facebook").exists?
+      %small
+        = surround "(", ")" do
+          = link_to 'delete', delete_oauth_path('facebook')
+    %br/
 

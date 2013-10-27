@@ -1,5 +1,7 @@
-= search_form_for @q, :url=>request.url, :html=>{:method=>:get, :class=>"form-search pull-right"} do |f|
-  .input-append
-    = f.text_field :title_cont, :class=>"search-query span2"
-    = f.button "Search", :class=>"btn", :type=>:submit
+= search_form_for @q, url: request.url, html: {method: :get, class: "form-inline pull-right"} do |f|
+  .form-group
+    = f.text_field :title_cont, :class=>"search-query col-lg-2 form-control "
+  = f.button class: "btn ", type: :submit do
+    = draw_icon 'search'
+    Search
 

@@ -13,11 +13,10 @@
   %h1= @organization.name
   %br/
   = link_to "Scraps:", [@organization, :scraps]
-  %span.badge
-    - if current_user and current_user.member_of?(@organization)
-      = @organization.scraps.count(:id)
-    - else
-      = @organization.scraps.public_scraps.count(:id)
+  - if current_user and current_user.member_of?(@organization)
+    = @organization.scraps.count(:id)
+  - else
+    = @organization.scraps.public_scraps.count(:id)
 
 
   .btn-toolbar.links
@@ -37,5 +36,6 @@
       - if current_user and current_user.member_of?(@organization)
         = link_to [@organization, :folders], :class=>"btn btn-inverse disabled", :title=>"Manage folders" do
           = draw_icon('folder-open', :class=>"icon-white")
-  .clear/
+  .clear
+.clear
 

@@ -22,11 +22,12 @@ module ApplicationHelper
   end
 
   def remove_icon
-    raw('<i class="icon-remove"></i>')
+    draw_icon 'remove'
   end
 
   def draw_icon(icon, opts={})
-    raw("<i class=\"icon-#{icon} #{opts[:class]}\"></i>")
+    opts[:class] = "glyphicon glyphicon-#{icon} #{opts[:class]}"
+    content_tag :span, nil, opts
   end
 
   def ejs(val)

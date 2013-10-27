@@ -6,7 +6,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem "pg", ">= 0.14.1"
 gem "haml", ">= 3.1.7"
-gem "bootstrap-sass", ">= 2.1.0.0"
 gem "devise"
 gem 'omniauth-github'
 gem 'omniauth-facebook'

@@ -15,7 +15,7 @@ class ScrapsController < ApplicationController
   def index
     @q = @organization.scraps
     unless @organization.users.member?(current_user)
-      @q = @q.public
+      @q = @q.public_scraps
     end
     if @folder.present?
       @q = @q.where(:folder_id=>@folder.id)
@@ -61,7 +61,7 @@ class ScrapsController < ApplicationController
       @scrap = if @organization.users.member?(current_user)
                   @organization.scraps.find(params[:id])
                 else
-                  @organization.scraps.public.find(params[:id])
+                  @organization.scraps.public_scraps.find(params[:id])
                 end
     end
 
@@ -78,7 +78,7 @@ class ScrapsController < ApplicationController
         [{}]
       else
         [params.require(:scrap).permit(:title, :is_public, :description, :folder_id,
-                                    single_file_attributes: [:content, :name, :lexer] )]
+                                    single_files_attributes: [:content, :name, :id, :_destroy] )]
       end
     end
 
