@@ -1,14 +1,15 @@
 !!!
 %html
   %head
+    = airbrake_javascript_notifier
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %title= content_for?(:title) ? yield(:title) : "ScrapsApp"
-      %meta{:content => content_for?(:description) ? yield(:description) : "ScrapsApp", :name => "description"}
-        = stylesheet_link_tag "application", :media => "all"
-        = javascript_include_tag "application"
-        = csrf_meta_tags
-        = yield(:head)
-        = render :partial=>"/layouts/ga"
+    %title= content_for?(:title) ? yield(:title) : "ScrapsApp"
+    %meta{:content => content_for?(:description) ? yield(:description) : "ScrapsApp", :name => "description"}
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield(:head)
+    = render :partial=>"/layouts/ga"
   %body{:class=>params[:controller], :'data-organization'=>@organization.present? ? @organization.slug : ''}
     %header.navbar.navbar-fixed-top
       %nav.navbar-inner
@@ -47,7 +48,7 @@
                       .accordion-body.collapse{:id=>"collapse_#{org.slug}"}
                         .sidebar-nav
                           %ul.nav.nav-list
-                            %li.nav-header 
+                            %li.nav-header
                               Folders
                             - unless org.folders.empty?
                               %ul
@@ -87,7 +88,6 @@
                         All organizations
                         %span.badge= Organization.public.count(:id)
 
-                
             .span9
               = render 'layouts/messages'
               #content_wrapper

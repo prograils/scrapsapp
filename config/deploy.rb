@@ -1,5 +1,5 @@
 require './config/boot'
-#require 'airbrake/capistrano'
+require 'airbrake/capistrano'
 require "bundler/capistrano"
 require 'hipchat/capistrano'
 #require "delayed/recipes"
