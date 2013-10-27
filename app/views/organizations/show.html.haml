@@ -17,9 +17,9 @@
     - if current_user and current_user.member_of?(@organization)
       = @organization.scraps.count(:id)
     - else
-      = @organization.scraps.public.count
+      = @organization.scraps.public_scraps.count(:id)
 
-  
+
   .btn-toolbar.links
     .btn-group
       - if current_user and @organization.user_id!=current_user.id
@@ -34,7 +34,7 @@
             = draw_icon('pencil', :class=>"icon-white")
           = link_to members_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Manage users" do
             = draw_icon('user', :class=>"icon-white")
-      - if current_user and current_user.member_of?(@organization) 
+      - if current_user and current_user.member_of?(@organization)
         = link_to [@organization, :folders], :class=>"btn btn-inverse disabled", :title=>"Manage folders" do
           = draw_icon('folder-open', :class=>"icon-white")
   .clear/

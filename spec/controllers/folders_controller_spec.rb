@@ -7,7 +7,10 @@ describe FoldersController do
   # update the return value of this method accordingly.
   def valid_attributes(user=nil)
     user ||= FactoryGirl.create(:user)
-    FactoryGirl.attributes_for(:folder, organization: user.private_organization)
+    f = FactoryGirl.attributes_for(:folder, organization: user.private_organization)
+    f.delete(:organization_id)
+    f.delete(:id)
+    f
   end
 
   before(:each) do
@@ -58,18 +61,18 @@ describe FoldersController do
     describe "with valid params" do
       it "creates a new Folder" do
         expect {
-          post :create, {organization_id: @organization.id, :folder => valid_attributes}
+          post :create, {organization_id: @organization.id, folder: valid_attributes(@user)}
         }.to change(Folder, :count).by(1)
       end
 
       it "assigns a newly created folder as @folder" do
-        post :create, {organization_id: @organization.id, :folder => valid_attributes}
+        post :create, {organization_id: @organization.id, folder: valid_attributes(@user)}
         assigns(:folder).should be_a(Folder)
         assigns(:folder).should be_persisted
       end
 
       it "redirects to the created folder" do
-        post :create, {organization_id: @organization.id, :folder => valid_attributes}
+        post :create, {organization_id: @organization.id, folder: valid_attributes(@user)}
         response.should redirect_to(organization_folders_path(@organization))
       end
     end
@@ -78,7 +81,7 @@ describe FoldersController do
       it "assigns a newly created but unsaved folder as @folder" do
         # Trigger the behavior that occurs when invalid params are submitted
         Folder.any_instance.stub(:save).and_return(false)
-        post :create, {organization_id: @organization.id, :folder => {}}
+        post :create, {organization_id: @organization.id, folder: {name: ''}}
         assigns(:folder).should be_a_new(Folder)
       end
     end

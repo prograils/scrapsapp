@@ -31,7 +31,7 @@ class ScrapsController < ApplicationController
   end
 
   def create
-    @scrap = @organization.scraps.new(params[:scrap])
+    @scrap = @organization.scraps.new(build_resource_params.first)
     @scrap.user = current_user
     create!
   end
@@ -74,8 +74,12 @@ class ScrapsController < ApplicationController
     end
 
     def build_resource_params
-      [params.require(:scrap).permit(:title, :is_public, :descripton, :folder_id,
+      unless params[resource_instance_name].presence
+        [{}]
+      else
+        [params.require(:scrap).permit(:title, :is_public, :description, :folder_id,
                                     single_file_attributes: [:content, :name, :lexer] )]
+      end
     end
 
 end

@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :scrap do
-    title { generate(:name) }
+    sequence(:title){|n| "scrap #{n}"}
     description "MyText"
-    user 
-    organization 
+    user
+    organization
     is_public true
   end
 end

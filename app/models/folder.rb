@@ -13,7 +13,7 @@ class Folder < ActiveRecord::Base
 
   ## FRIENDLY_ID
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   def to_s
     self.name

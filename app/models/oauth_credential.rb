@@ -4,6 +4,10 @@ class OauthCredential < ActiveRecord::Base
   ## ASSOCIATIONS
   belongs_to :user
 
+  ## VALIDATIONS
+  validates :provider, :uid, :user,
+            presence: true
+
   def to_s
     "#{self.provider} - #{self.uid}"
   end

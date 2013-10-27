@@ -30,9 +30,9 @@ gem 'timeline_fu', :git=>'git@github.com:mlitwiniuk/timeline_fu.git'#, :branch=>
 gem 'dotenv-rails'
 
 group :development do
-  gem "haml-rails", ">= 0.3.5", :group => :development
-  gem "hpricot", ">= 0.8.6", :group => :development
-  gem "ruby_parser", ">= 2.3.1", :group => :development
+  gem "haml-rails", ">= 0.3.5"
+  gem "hpricot", ">= 0.8.6"
+  gem "ruby_parser", ">= 2.3.1"
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-process'
@@ -51,7 +51,8 @@ end
 
 group :development, :test do
   gem "rspec-rails", ">= 2.11.0"
-  gem "factory_girl_rails", ">= 4.1.0", :group => [:development, :test]
+  gem "factory_girl_rails", ">= 4.1.0"
   gem "shoulda-matchers"
-  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'rb-fsevent'
+  gem 'terminal-notifier-guard'
 end

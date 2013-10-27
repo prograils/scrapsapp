@@ -27,7 +27,7 @@ class Organization < ActiveRecord::Base
 
   ## FRIENDLY_ID
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   ## ANAF
   accepts_nested_attributes_for :memberships, :reject_if=>proc{|m| m['user_id'].blank? or m['membership_type'].blank? }, :allow_destroy=>true

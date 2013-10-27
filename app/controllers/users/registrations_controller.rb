@@ -21,7 +21,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in :user, @user, :bypass=>true , :event=>:authentication
       redirect_to root_url
     else
-      @user.errors.each{|k,v| logger.info "#{k}: #{v}"}
       render :action=> :edit
     end
   end

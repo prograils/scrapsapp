@@ -6,7 +6,7 @@ class FoldersController < ApplicationController
 
 
   def index
-    @folders = @organization.folders.ordered.all
+    @folders = @organization.folders.ordered.to_a
   end
 
   def create
@@ -24,7 +24,11 @@ class FoldersController < ApplicationController
     end
 
     def build_resource_params
-      [params.require(:folder).permit(:name)]
+      unless params[resource_instance_name].presence
+        [{}]
+      else
+        [params.require(:folder).permit(:name)]
+      end
     end
 
 end

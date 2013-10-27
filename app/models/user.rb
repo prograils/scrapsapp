@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
     #token = auth["credentials"]["token"]
     #secret = auth["credentials"]["secret"]
     #d = Date.today
-    logger.info auth
     create! do |user|
       user.bypass_validation_on_oauth = true
       user.oauth_one_time_token = Devise.friendly_token[0,20]
@@ -123,7 +122,6 @@ class User < ActiveRecord::Base
   end
 
   def self.fill_from_twitter(auth, user, do_save=false)
-    #logger.info auth['extra']['raw_info']
     user.bypass_validation_on_oauth = true
     oac = user.oauth_credentials.where(:provider=>"twitter").first_or_initialize
     oac.uid = auth['uid']
@@ -141,7 +139,6 @@ class User < ActiveRecord::Base
   end
 
   def self.fill_from_facebook(auth, user, do_save=false)
-    #logger.info auth
     user.bypass_validation_on_oauth = true
     oac = user.oauth_credentials.where(:provider=>"facebook").first_or_initialize
     oac.uid = auth['uid']
@@ -160,7 +157,6 @@ class User < ActiveRecord::Base
   end
 
   def self.fill_from_github(auth, user, do_save=false)
-    logger.info auth['extra']['raw_info']
     user.bypass_validation_on_oauth = true
     oac = user.oauth_credentials.where(:provider=>"github").first_or_initialize
     oac.uid = auth['uid']
@@ -180,10 +176,7 @@ class User < ActiveRecord::Base
     def check_username_uniqueness(check_user=false)
       ex = Organization
       ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.public
-      logger.info ex.to_sql
-      puts ex.to_sql
       ex = ex.where('name ilike ?', self.username)
-      puts ex.to_sql
       if check_user
         check_user = User.where('username ilike ?', self.username).exists?
       end
