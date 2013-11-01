@@ -10,7 +10,7 @@ gem "devise"
 gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem "simple_form", ">= 2.0.3"
+gem "simple_form", ">= 3.0.0"
 gem "friendly_id", github: 'norman/friendly_id'
 gem "inherited_resources"
 gem "kaminari"
@@ -55,3 +55,4 @@ group :development, :test do
   gem 'rb-fsevent'
   gem 'terminal-notifier-guard'
 end
+gem 'unicorn'

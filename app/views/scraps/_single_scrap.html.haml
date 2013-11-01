@@ -2,7 +2,7 @@
   %h4.pull-left.scrap_title
     = link_to scrap.title, get_scrap_path(scrap.organization, scrap)
     %small
-      = draw_icon('eye-open', :class=>scrap.is_public? ? "icon-white" : "", :title=>scrap.is_public? ? "Public" : "Private")
+      = draw_icon(scrap.is_public? ? 'eye-open' : 'eye-close', :class=>scrap.is_public? ? "icon-white" : "", :title=>scrap.is_public? ? "Public" : "Private")
   -#%span.badge.pull-left.file_number{:title=>"Associatied files: #{scrap.single_files.count(:id)}"}= scrap.single_files.count(:id)
   .clear
   - unless scrap.description.empty?

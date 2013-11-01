@@ -5,7 +5,7 @@ class OrganizationsController < ApplicationController
 
   ## inherited overwrites
   def index
-    @q = current_user.organizations.public.search(params[:q])
+    @q = current_user.organizations.not_users.search(params[:q])
     @organizations = @q.result(:distinct=>true).page(params[:page])
     @can_manage = true
     index!
@@ -42,7 +42,7 @@ class OrganizationsController < ApplicationController
   end
 
   def public
-    @q = Organization.public.search(params[:q])
+    @q = Organization.not_users.search(params[:q])
     @organizations = @q.result(:distinct=>true).page(params[:page])
     @can_manage = false
   end
@@ -66,11 +66,11 @@ class OrganizationsController < ApplicationController
     end
 
     def find_managed_organization
-      @organization = current_user.managed_organizations.public.find(params[:id])
+      @organization = current_user.managed_organizations.not_users.find(params[:id])
     end
 
     def build_resource_params
-      [params.require(:organization).permit(:name, :permissions,
+      [params.require(:organization).permit(:name, :permissions, :logo, :remove_logo,
                               membership_attributes: [:membership_type, :user_id])]
     end
 end

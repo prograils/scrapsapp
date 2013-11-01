@@ -2,7 +2,7 @@ class Scrap < ActiveRecord::Base
 
   ## SCOPES
   scope :public_scraps, ->{ where(is_public: true) }
-  scope :ordered, ->{ order("#{Scrap.quoted_table_name}.created_at DESC") }
+  scope :ordered, ->{ order("#{Scrap.quoted_table_name}.updated_at DESC") }
 
   ## ASSOCIATIONS
   belongs_to :user

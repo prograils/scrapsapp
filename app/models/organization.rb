@@ -2,7 +2,8 @@ class Organization < ActiveRecord::Base
   attr_accessor :permissions, :creating_user
 
   ## SCOPES
-  scope :public, ->{ where(user_id: nil) }
+  scope :not_users, ->{ where(user_id: nil) }
+  scope :ordered, ->{ order('name ASC') }
 
 
   ## ASSOCIATIONS
@@ -18,6 +19,8 @@ class Organization < ActiveRecord::Base
   has_many :actored_timeline_events, :as=>:actor, :dependent=>:destroy, class_name: "TimelineEvent"
   has_many :folders, :dependent=>:destroy
 
+  ## CARRIERWAVE
+  mount_uploader :logo, OrganizationLogoUploader
 
   ## VALIDATIONS
   validates :name,

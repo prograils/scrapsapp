@@ -3,6 +3,9 @@
 
   .form-inputs
     = f.input :name
+    = f.input :logo, hint: @organization.logo.present? ? @organization.logo.filename : ''
+    - if @organization.logo.present?
+      = f.input :remove_logo, as: :boolean
 
   .form-actions
     = f.button :submit, class: 'btn btn-success'

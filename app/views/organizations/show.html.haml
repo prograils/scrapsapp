@@ -18,24 +18,23 @@
   - else
     = @organization.scraps.public_scraps.count(:id)
 
-
-  .btn-toolbar.links
-    .btn-group
-      - if current_user and @organization.user_id!=current_user.id
-        - if current_user.observed_organizations.member?(@organization)
-          = link_to [:stop_observing, @organization], :class=>"btn btn-inverse disabled", :title=>"Stop observing" do
-            = draw_icon('heart', :class=>"icon-white")
-        - else
-          = link_to [:observe, @organization], :class=>"btn btn-inverse disabled", :title=>"Observe" do
-            = draw_icon('heart', :class=>"")
-        - if @organization.admins.member?(current_user)
-          = link_to edit_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Edit" do
-            = draw_icon('pencil', :class=>"icon-white")
-          = link_to members_organization_path(@organization), :class=>"btn btn-inverse disabled", :title=>"Manage users" do
-            = draw_icon('user', :class=>"icon-white")
-      - if current_user and current_user.member_of?(@organization)
-        = link_to [@organization, :folders], :class=>"btn btn-inverse disabled", :title=>"Manage folders" do
-          = draw_icon('folder-open', :class=>"icon-white")
+  .clear
+  .btn-group
+    - if current_user and @organization.user_id!=current_user.id
+      - if current_user.observed_organizations.member?(@organization)
+        = link_to [:stop_observing, @organization], :class=>"btn btn-sm btn-success", :title=>"Stop observing" do
+          = draw_icon('heart', :class=>"icon-white")
+      - else
+        = link_to [:observe, @organization], :class=>"btn btn-sm btn-success", :title=>"Observe" do
+          = draw_icon('heart', :class=>"")
+      - if @organization.admins.member?(current_user)
+        = link_to edit_organization_path(@organization), :class=>"btn btn-sm btn-success", :title=>"Edit" do
+          = draw_icon('pencil', :class=>"icon-white")
+        = link_to members_organization_path(@organization), :class=>"btn btn-sm btn-success", :title=>"Manage users" do
+          = draw_icon('user', :class=>"icon-white")
+    - if current_user and current_user.member_of?(@organization)
+      = link_to [@organization, :folders], :class=>"btn btn-sm btn-success", :title=>"Manage folders" do
+        = draw_icon('folder-open', :class=>"icon-white")
   .clear
 .clear
 

@@ -1,16 +1,17 @@
 = render :partial=>"/scraps/search_form"
 %h1
-  Listing scraps
   - if @folder
-    in folder
     = @folder.name
+  - else
+    All scraps
+
 
 - if current_user and @organization.users.member?(current_user)
   = link_to  [:new, @organization, :scrap], :class=>'p' do
     = draw_icon('plus-sign')
     Add new scrap
 
-- @scraps.each do |scrap| 
+- @scraps.each do |scrap|
   = render :partial => 'single_scrap', :locals=>{:scrap=>scrap, :show_all=>false}
 
 = paginate @scraps

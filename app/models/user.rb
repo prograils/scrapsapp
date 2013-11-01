@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
 
     def check_username_uniqueness(check_user=false)
       ex = Organization
-      ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.public
+      ex = self.persisted? ? ex.where('user_id!=? or user_id is null', self.id) : ex.not_users
       ex = ex.where('name ilike ?', self.username)
       if check_user
         check_user = User.where('username ilike ?', self.username).exists?

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
     def get_menu_organizations
       if current_user
-        @menu_organizations = current_user.organizations
+        @menu_organizations = current_user.organizations.ordered
       end
     end
 end
