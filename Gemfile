@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.2'
 gem 'sass-rails',   '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -11,7 +11,7 @@ gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "simple_form", ">= 3.0.0"
-gem "friendly_id", github: 'norman/friendly_id'
+gem "friendly_id", "~> 5.0.0"
 gem "inherited_resources"
 gem "kaminari"
 gem "ransack"
