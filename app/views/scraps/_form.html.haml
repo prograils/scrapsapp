@@ -1,17 +1,31 @@
-= simple_nested_form_for([@organization, @scrap], :html=>{:class=>"form-horizontal"}) do |f|
+= simple_nested_form_for([@organization, @scrap], html: {class: "form-horizontal", id: 'scrap_form'}) do |f|
   = f.error_notification
-
   .form-inputs
-    = f.input :title
-    = f.input :is_public
-    = f.association :folder, :collection=>@organization.folders.all
-    = f.input :description, :input_html=>{:class=>"input-xxlarge", :rows=>"2"}
-    %hr/
-    = f.fields_for :single_files do |fsf|
-      = fsf.input :name
-      = fsf.input :content, :input_html=>{:class=>"input-xxlarge code_area", :rows=>"10"}
-      = fsf.link_to_remove "del"
-    = f.link_to_add "add new file", :single_files
+    .row
+      .col-lg-9
+        = f.text_field :title, class: 'form-control required', placeholder: t('.title', default: 'Snippet title')
+      .col-lg-1
+        = f.check_box :is_public
+      .col-lg-2
+        = f.select :folder, options_for_select(@organization.folders.all, @scrap.folder_id), {}, {class: 'form-control'}
+    .row
+      .col-lg-12
+        = f.text_area :description, {class: "form-control input-xxlarge", rows: "1", placeholder: t('.description', default: 'Description')}
+    .row
+      .col-lg-11.col-lg-offset-1
+        = f.fields_for :single_files do |fsf|
+          .row
+            .col-lg-11
+              = fsf.text_field :name, class: 'form-control scrap_name', placeholder: t('.filename', default: 'File name, ie. awesomeness.rb')
+            .col-lg-1
+              = fsf.link_to_remove draw_icon('remove')
+          .row
+            .col-lg-12
+              = fsf.text_area :content, {class: "form-control input-xxlarge code_area", rows: "10"}
+
+        = f.link_to_add :single_files do
+          = draw_icon 'plus'
+          add new file
 
   .form-actions
     = f.button :submit, class: 'btn btn-success'
