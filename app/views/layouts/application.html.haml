@@ -10,7 +10,7 @@
     = csrf_meta_tags
     = yield(:head)
     = render :partial=>"/layouts/ga"
-  %body{:class=>params[:controller], :'data-organization'=>@organization.present? ? @organization.slug : ''}
+  %body{:class=>params[:controller].gsub(/\//, '_'), :'data-organization'=>@organization.present? ? @organization.slug : ''}
     = render '/layouts/navigation'
     #main{:role => "main", :class=>params[:action]}
       .container

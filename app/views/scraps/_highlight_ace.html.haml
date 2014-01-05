@@ -1,0 +1,14 @@
+.ace_editor_wrapper
+  %div{id: "sf#{single_file.id}"}><~ single_file.content
+.clear
+:javascript
+  $(document).ready(function(){
+    var editor = ace.edit("sf#{single_file.id}");
+    //editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/plain_text");
+    editor.setReadOnly(true);
+    editor.resize();
+    editor.getSession().setUseWrapMode(true);
+    window.editors["sf#{single_file.id}"] = editor;
+  });
+

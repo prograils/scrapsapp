@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery_nested_form
+//= require ace/ace.js
 //= require_tree .
+
+window.editors = [];

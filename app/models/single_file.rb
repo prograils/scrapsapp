@@ -33,8 +33,10 @@ class SingleFile < ActiveRecord::Base
           lx = Pygments::Lexer.find_by_extname(ext)
           if lx.present?
             self.lexer = lx.aliases.first
-            self.lexer_type = 'pygments'
+          else
+            self.lexer = 'plain_text'
           end
+          self.lexer_type = 'ace'
         end
         #if self.lexer.blank?
           #logger.info "yeah, blank lexer!!"
