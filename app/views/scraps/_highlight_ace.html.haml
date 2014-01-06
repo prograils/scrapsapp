@@ -1,14 +1,3 @@
-.ace_editor_wrapper
-  %div{id: "sf#{single_file.id}"}><~ single_file.content
+.ace_editor_wrapper{data: {lexer: single_file.lexer, id: single_file.id, read_only: true, file_name: single_file.name}}
+  %div><~ single_file.content
 .clear
-:javascript
-  $(document).ready(function(){
-    var editor = ace.edit("sf#{single_file.id}");
-    //editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/plain_text");
-    editor.setReadOnly(true);
-    editor.resize();
-    editor.getSession().setUseWrapMode(true);
-    window.editors["sf#{single_file.id}"] = editor;
-  });
-
