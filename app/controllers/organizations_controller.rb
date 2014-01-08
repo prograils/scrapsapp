@@ -17,7 +17,7 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.new params[:organization]
+    @organization = Organization.new build_resource_params.first
     @membership = current_user.memberships.build do |m|
       m.membership_type = 'admin'
     end
@@ -70,7 +70,7 @@ class OrganizationsController < ApplicationController
     end
 
     def build_resource_params
-      [params.require(:organization).permit(:name, :permissions, :logo, :remove_logo,
+      [params.fetch(:organization, {}).permit(:name, :permissions, :logo, :remove_logo,
                               membership_attributes: [:membership_type, :user_id])]
     end
 end
