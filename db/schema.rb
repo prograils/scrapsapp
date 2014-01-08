@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140105140642) do
+ActiveRecord::Schema.define(version: 20140108194018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,11 +108,11 @@ ActiveRecord::Schema.define(version: 20140105140642) do
     t.string   "file_name"
     t.string   "directory"
     t.text     "content"
-    t.string   "lexer"
+    t.string   "lexer",      default: "plain_text"
     t.string   "lexer_type"
     t.integer  "scrap_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "single_files", ["scrap_id"], name: "index_single_files_on_scrap_id", using: :btree

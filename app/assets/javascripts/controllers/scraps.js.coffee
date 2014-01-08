@@ -49,6 +49,13 @@ setup_ace = ->
     $(document).on 'nested:fieldAdded:single_files', (event)->
       field = event.field
       attach_editor(field)
+    $('#scrap_form').on 'change', '.lexer_name', ->
+      $this = $(this)
+      $wrapper = $this.parents('.fields').find('.ace_editor_wrapper')
+      id = $wrapper.data('id')
+      editor = window.editors['sf'+id]
+      editor.getSession().setMode("ace/mode/"+$this.val())
+
   else
     $('.ace_editor_wrapper').each (idx, elem)->
       attach_editor($(elem).parent())

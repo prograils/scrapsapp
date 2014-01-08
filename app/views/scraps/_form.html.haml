@@ -18,7 +18,7 @@
             .col-lg-9
               = fsf.text_field :name, class: 'form-control scrap_name', placeholder: t('.filename', default: 'File name, ie. awesomeness.rb')
             .col-lg-2
-              = fsf.select :lexer, options_for_select([], fsf.object.lexer), class: 'form-control lexer_name'
+              = fsf.select :lexer, options_for_select(get_lexer_options, fsf.object.lexer), {}, {class: 'form-control lexer_name input-sm'}
             .col-lg-1
               = fsf.link_to_remove draw_icon('remove')
           .row
