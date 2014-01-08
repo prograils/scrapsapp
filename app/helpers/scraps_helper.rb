@@ -8,10 +8,6 @@ module ScrapsHelper
   end
 
   def get_lexer_options
-    @@files ||= Dir.entries(Rails.root.join('vendor', 'assets', 'javascripts', 'ace'))
-    @@lexers ||= @@files.select{|f| f=~/mode-/}.map do |f|
-      f.split('-').last.split('.').first
-    end
-    @@lexers
+    SingleFile.lexer_options
   end
 end

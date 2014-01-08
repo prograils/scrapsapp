@@ -1,5 +1,12 @@
-require 'tempfile'
 class SingleFile < ActiveRecord::Base
+  # @TODO: I really don't like it...
+  def self.lexer_options
+    @@files ||= Dir.entries(Rails.root.join('vendor', 'assets', 'javascripts', 'ace'))
+    @@lexers ||= @@files.select{|f| f=~/mode-/}.map do |f|
+      f.split('-').last.split('.').first
+    end
+    @@lexers
+  end
 
   ## SCOPES
   scope :ordered, ->{ order("#{SingleFile.quoted_table_name}.id ASC") }
@@ -10,12 +17,13 @@ class SingleFile < ActiveRecord::Base
   ## VALIDATED
   validates :name,
             :presence=>true
-  #validates :lexer,
-            #:inclusion=>{:in=>[""]|Pygments::Lexer.all.select{|y| !(y.filenames.empty?)}.map{|x|[x.name]}}
+  validates :lexer,
+            :inclusion=>{:in=>SingleFile.lexer_options}
 
   ## BEFORE & AFTER
   before_save :split_name
   before_save :set_lexer
+
 
 
   private
@@ -24,35 +32,13 @@ class SingleFile < ActiveRecord::Base
     end
 
     def set_lexer
-      if not self.lexer_changed? or self.lexer.blank?
-        ext = File.extname(self.file_name)
-        if ext.to_s=='.md'
-          self.lexer = 'Markdown'
-          self.lexer_type = 'redcarpet'
-        else
-          lx = Pygments::Lexer.find_by_extname(ext)
-          if lx.present?
-            self.lexer = lx.aliases.first
-          else
-            self.lexer = 'plain_text'
-          end
-          self.lexer_type = 'ace'
-        end
-        #if self.lexer.blank?
-          #logger.info "yeah, blank lexer!!"
-          #mime = MimeMagic.by_magic(self.content) || MimeMagic.by_path(self.file_name)
-          #logger.info "mime: #{mime}"
-          #file = Tempfile.new('scrapsapp')
-          #file.write self.content
-          #file.close
-          #unless File.binary?(file.path)
-            #self.lexer = 'text'
-            #self.lexer_type = 'pygments'
-          #end
-          #file.unlink
-        #end
+      ext = File.extname(self.file_name)
+      if ext.to_s=='.md' || self.lexer == 'markdown'
+        self.lexer = 'markdown'
+        self.lexer_type = 'redcarpet'
+      else
+        self.lexer_type = 'ace'
       end
-      true
     end
 
 end

@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require jquery_nested_form
 //= require ace/ace.js
+//= require ace/ext-modelist.js
 //= require_tree .
 
 window.editors = [];

@@ -27,8 +27,7 @@ set_lexer = (wrapper) ->
   if lexer
     editor.getSession().setMode("ace/mode/"+lexer)
   else
-    modelist = ace.require('ace/ext/modelist')
-    mode = modelist.getModeFromPath(file_name).mode
+    mode = get_modelist().getModeForPath(file_name).mode
     editor.getSession().setMode(mode)
 
 $ ->
@@ -37,6 +36,7 @@ $ ->
     setup_ace()
 
 setup_ace = ->
+  get_modelist()
   form = $('#scrap_form')
   if form.length > 0
     $('#scrap_form .single_files_wrapper .fields').each (idx, elem)->
@@ -51,13 +51,33 @@ setup_ace = ->
       attach_editor(field)
     $('#scrap_form').on 'change', '.lexer_name', ->
       $this = $(this)
+      $this.data('dirty', true)
       $wrapper = $this.parents('.fields').find('.ace_editor_wrapper')
       id = $wrapper.data('id')
       editor = window.editors['sf'+id]
       editor.getSession().setMode("ace/mode/"+$this.val())
+    $('#scrap_form').on 'keyup', '.scrap_name', ->
+      $this = $(this)
+      $parent = $this.parents('.fields')
+      $select = $parent.find('.lexer_name')
+      unless $select.data('dirty')
+        $wrapper = $parent.find('.ace_editor_wrapper')
+        id = $wrapper.data('id')
+        editor = window.editors['sf'+id]
+        mode = get_modelist().getModeForPath($this.val()).mode
+        if mode
+          mode_split = mode.split('/')
+          if mode_split.length == 3
+            $select.val(mode_split[2])
+          editor.getSession().setMode(mode)
 
   else
     $('.ace_editor_wrapper').each (idx, elem)->
       attach_editor($(elem).parent())
+
+get_modelist = ->
+  unless window.modelist
+    window.modelist = ace.require('ace/ext/modelist')
+  window.modelist
 
 

@@ -78,7 +78,9 @@ class ScrapsController < ApplicationController
         [{}]
       else
         [params.require(:scrap).permit(:title, :is_public, :description, :folder_id,
-                                    single_files_attributes: [:content, :name, :id, :_destroy] )]
+                                       single_files_attributes:
+                                                [:content, :name, :id, :lexer,
+                                                 :_destroy] )]
       end
     end
 
