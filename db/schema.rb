@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027150405) do
+ActiveRecord::Schema.define(version: 20140108194018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,11 +108,11 @@ ActiveRecord::Schema.define(version: 20131027150405) do
     t.string   "file_name"
     t.string   "directory"
     t.text     "content"
-    t.string   "lexer"
+    t.string   "lexer",      default: "plain_text"
     t.string   "lexer_type"
     t.integer  "scrap_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "single_files", ["scrap_id"], name: "index_single_files_on_scrap_id", using: :btree
@@ -176,8 +176,10 @@ ActiveRecord::Schema.define(version: 20131027150405) do
     t.string   "oauth_one_time_token"
     t.string   "photo"
     t.string   "twitter_profile"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

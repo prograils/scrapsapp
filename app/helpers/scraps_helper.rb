@@ -6,4 +6,8 @@ module ScrapsHelper
       [org, scrap]
     end
   end
+
+  def get_lexer_options
+    SingleFile.lexer_options
+  end
 end
