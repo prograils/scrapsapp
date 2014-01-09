@@ -1,6 +1,7 @@
 ScrapsApp::Application.routes.draw do
 
 
+  get "comments/create"
   get "starred" => "dashboard#starred", :as=>:starred
   get "observed" => "dashboard#observed", :as=>:observed
   get "my" => "dashboard#my", :as=>:my
@@ -20,11 +21,11 @@ ScrapsApp::Application.routes.draw do
       resources :scraps, :path=>"s", :only=>[:show, :index]
     end
     resources :scraps, :path=>"s" do
+      resources :comments, only: [:create]
       member do
         get :star
         get :unstar
       end
-
     end
   end
 

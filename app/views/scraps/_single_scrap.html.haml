@@ -28,3 +28,10 @@
           = draw_icon('pencil', :class=>"icon-white")
         = link_to [scrap.organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-success", title: "Delete" do
           = draw_icon('trash', :class=>"icon-white")
+  - if show_all
+    #comments_wrapper
+      - scrap.comments.ordered.each do |comment|
+        = render comment
+    = form_for [scrap.organization, scrap, Comment.new], remote: true, html: { class: 'form-horizontal'} do |f|
+      = f.text_area :comment_body, class: 'form-control'
+      = f.submit t('.create_comment', default: 'Create comment'), class: 'btn btn-success'

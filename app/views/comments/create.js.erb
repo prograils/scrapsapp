@@ -1,0 +1,7 @@
+<% if @comment.persisted? %>
+  $('#comments_wrapper').append("<%= j render(partial: @comment) %>");
+  $('#comment_comment_body').val('');
+<% else %>
+  // so this is where we need some notifier
+  alert("<%= j t('.failed_to_create_comment', default: 'Failed to create comment') %>");
+<% end %>

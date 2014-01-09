@@ -8,6 +8,7 @@ class Scrap < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
   belongs_to :folder
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :single_files, dependent: :destroy
   has_many :stars, dependent: :destroy
   has_many :starring_users, through: :stars, source: :user, class_name: "User"
