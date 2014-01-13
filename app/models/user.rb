@@ -43,6 +43,9 @@ class User < ActiveRecord::Base
   after_create :create_private_organization
   after_update :change_organization_name
 
+  def to_s
+    self.username
+  end
 
   def member_of?(org)
     self.memberships.where(:organization_id=>org.id).exists?

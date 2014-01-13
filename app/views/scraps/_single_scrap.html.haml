@@ -1,4 +1,4 @@
-.scrap_wrapper
+.scrap_wrapper{data: {id: scrap.id}}
   %h4.pull-left.scrap_title
     = link_to scrap.title, get_scrap_path(scrap.organization, scrap)
     %small
@@ -28,10 +28,21 @@
           = draw_icon('pencil', :class=>"icon-white")
         = link_to [scrap.organization, scrap], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-success", title: "Delete" do
           = draw_icon('trash', :class=>"icon-white")
+    = link_to [scrap.organization, scrap], class: 'btn btn-sm btn-success', title: 'Comments' do
+      = draw_icon('comment', class: 'icon-white')
+      %span.label= scrap.comments.count(:id)
   - if show_all
     #comments_wrapper
       - scrap.comments.ordered.each do |comment|
         = render comment
-    = form_for [scrap.organization, scrap, Comment.new], remote: true, html: { class: 'form-horizontal'} do |f|
-      = f.text_area :comment_body, class: 'form-control'
-      = f.submit t('.create_comment', default: 'Create comment'), class: 'btn btn-success'
+      .col-lg-12.col-md-12.col-sm-12.comment
+        .row
+          .col-lg-1.col-md-1.col-sm-2
+            = gravatar_image_tag current_user.email, :class=>"user_image", :gravatar => { :size => 50 }
+          .col-lg-11.col-md-11.col-sm-10
+            .row
+              .col-lg-12.col-md-12.col-sm-12
+                = form_for [scrap.organization, scrap, Comment.new], remote: true, html: { class: 'form-horizontal'} do |f|
+                  = f.text_area :comment_body, class: 'form-control'
+                  .pull-right
+                    = f.submit t('.create_comment', default: 'Create comment'), class: 'btn btn-success btn-sm'

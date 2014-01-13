@@ -1,1 +1,14 @@
-= comment.comment_body
+.col-lg-12.col-md-12.col-sm-12.comment
+  .row
+    .col-lg-1.col-md-1.col-sm-2
+      = gravatar_image_tag comment.user.email, :class=>"user_image", :gravatar => { :size => 50 }
+    .col-lg-11.col-md-11.col-sm-10
+      .row
+        .col-lg-9.col-md-8.col.sm-6
+          %strong= comment.user
+        .col-lg-3.col-md-4.col-sm-6
+          .pull-right{title: comment.created_at.to_s(:db)}
+            = time_ago_in_words comment.created_at
+      .row
+        .col-lg-12.col-md-12.col-sm-12
+          = comment.comment_body

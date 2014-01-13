@@ -192,4 +192,13 @@ body {
     min-height: 300px;
   }
 }
+#comments_wrapper{
+  margin-top: 5px;
+  .comment{
+    margin-bottom: 5px;
+    textarea{
+      margin-bottom: 5px;
+    }
 
+  }
+}
