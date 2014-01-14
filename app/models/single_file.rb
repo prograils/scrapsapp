@@ -33,11 +33,18 @@ class SingleFile < ActiveRecord::Base
 
     def set_lexer
       ext = File.extname(self.file_name)
-      if ext.to_s=='.md' || self.lexer == 'markdown'
-        self.lexer = 'markdown'
-        self.lexer_type = 'redcarpet'
+      mime = MIME::Types.type_for(self.file_name).first
+      # dirty, mime for soeme reason does not recognize md
+      if (mime && mime.simplified =~ /text\//) || ext.to_s=='.md'
+        if ext.to_s=='.md' || self.lexer == 'markdown'
+          self.lexer = 'markdown'
+          self.lexer_type = 'redcarpet'
+        else
+          self.lexer_type = 'ace'
+        end
       else
-        self.lexer_type = 'ace'
+        self.lexer = nil
+        self.lexer_type = nil
       end
     end
 
