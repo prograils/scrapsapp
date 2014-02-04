@@ -83,3 +83,4 @@ pickle-email-*.html
 .rvmrc
 .env
 .ruby-*
+deploy.rb
