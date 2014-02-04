@@ -73,7 +73,7 @@ ScrapsApp::Application.configure do
 
 
 
-  config.action_controller.asset_host = 'http://scrapsapp.com'
+  config.action_controller.asset_host = 'https://scrapsapp.com'
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
