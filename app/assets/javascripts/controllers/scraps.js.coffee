@@ -15,6 +15,9 @@ attach_editor = (sf_elem) ->
     editor.resize()
     editor.getSession().setUseWrapMode(true)
     editor.setReadOnly(true) if elem.data('read-only')
+    editor.setAutoScrollEditorIntoView()
+    editor.setOption("minLines", 10)
+    editor.setOption("maxLines", 30)
     window.editors[id] = editor
     set_lexer(elem)
 
